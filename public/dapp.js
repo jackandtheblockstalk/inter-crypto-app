@@ -4,6 +4,8 @@ const rinkeby_etherscan = 'https://rinkeby.etherscan.io/';
 const mainnet_address = '0x248075bd51aad583e9f5afdbee3d306b628e6435';
 const mainnet_etherscan = 'https://etherscan.io/';
 
+const myAddress = '0x61b122c456b72aef1fe767ee5b2ac486356e6c45';
+
 var networkId;
 var contractAddress;
 var etherscan_url;
@@ -16,8 +18,6 @@ window.onload = function() {
     displayDAPPContent('<div class="alert alert-warning" role="alert" align="center">You need <a href="https://metamask.io/">MetaMask</a> browser plugin to run this DAPP</div>');
   }
   else {
-    // TODO: Check what blockchain is being run and set contract address accordingly.
-    // TODO: Show message if that blockchain is not supported...
     networkId = checkNetwork();
     switch (networkId) {
       case '1':
@@ -40,51 +40,52 @@ window.onload = function() {
       InterCrypto = myContract.at(contractAddress);
       // TODO: Check that InterCrypto is defined, else show message
 
-      ic_getInterCryptoPrice();
+      ic_updateCost();
+
+      document.getElementById('eh').href = etherscan_url + 'address/' + contractAddress;
     }
+
+  }
+}
+
+function getICSymbol() {
+  switch (document.getElementById('ic_symbol').value) {
+    case 'Bitcoin':
+      return 'btc';
+    case 'Litecoin':
+      return 'ltc';
+    case 'Ethereum Classic':
+      return 'etc';
+    default:
+      return 0;
   }
 }
 
 function ic_sendToOtherBlockchain() {
   var amountToSend = web3.toWei(document.getElementById("ic_amount").value, 'ether')
   var symbol;
-  switch (document.getElementById('ic_symbol').value) {
-    case 'Bitcoin':
-      symbol = 'btc';
-      break;
-    case 'Litecoin':
-      symbol = 'ltc';
-      break;
-    case 'Ethereum Classic':
-      symbol = 'etc';
-      break;
-    default:
-      document.getElementById('ic_sendToOtherBlockchain_response').innerHTML = '<div class="alert alert-warning" role="alert>Currency symbol not found</div>';
+  symbol = getICSymbol();
+  if (symbol == 0)
+    document.getElementById('ic_sendToOtherBlockchain_response').innerHTML = '<div class="alert alert-warning" role="alert>Currency symbol not found</div>';
+  else {
+    var address = document.getElementById("ic_address").value
+    symbol = 'eth_' + symbol;
+    document.getElementById('ic_sendToOtherBlockchain_response').innerHTML = '<div class="alert alert-success" role="alert">InterCrypto.sendToOtherBlockchain(' + symbol + ', ' + address + ', {value: ' + amountToSend + '}</div>';
+    InterCrypto.sendToOtherBlockchain(symbol, address, {value: amountToSend}, (error, result) => {
+      if (error)
+        document.getElementById('ic_sendToOtherBlockchain_response').innerHTML = '<div class="alert alert-warning" role="alert>"' + error + '</div>';
+      else {
+        document.getElementById('ic_sendToOtherBlockchain_response').innerHTML = '<div class="alert alert-success" role="alert">Tx: <a href="' + etherscan_url + 'tx/' + result + '">' + result + '</a></div>';
+        // TODO: watch for events and display them
+      }
+    })
   }
-  var address = document.getElementById("ic_address").value
-
-
-  InterCrypto.sendToOtherBlockchain(symbol, address, {value: amountToSend}, (error, result) => {
-    if (error)
-      document.getElementById('ic_sendToOtherBlockchain_response').innerHTML = '<div class="alert alert-warning" role="alert>"' + error + '</div>';
-    else
-      document.getElementById('ic_sendToOtherBlockchain_response').innerHTML = '<div class="alert alert-success" role="alert">Tx: <a href="' + etherscan_url + 'tx/' + result + '">' + result + '</a></div>';
-  })
-}
-
-function ic_getInterCryptoPrice() {
-  InterCrypto.getInterCryptoPrice((error, result) => {
-    if (error)
-      displayDAPPContent('<div class="alert alert-warning" role="alert">' + error + '</div>');
-    else
-      document.getElementById('oracalize_cost').innerHTML = "+" + web3.fromWei(result, 'ether');
-  });
 }
 
 function donate_send() {
   web3.eth.sendTransaction({
     from: web3.eth.coinbase,
-    to: '0x61b122c456b72aef1fe767ee5b2ac486356e6c45',
+    to: myAddress,
     value: web3.toWei(document.getElementById("donate_amount").value, 'ether')
   }, function(error, result) {
     if (!error) {
@@ -108,4 +109,48 @@ function checkNetwork() {
     displayDAPPContent('<div class="alert alert-warning" role="alert" align="center">' + error + '</div>')
   }
   return value;
+}
+
+function ic_updateCost() {
+  ic_getInterCryptoPrice((error, result1) => {
+    ic_getShapeShiftMarket( (error, result2) =>{
+      ic_setMinimumCost(result1 + result2);
+    })
+  });
+}
+function ic_getInterCryptoPrice(callback) {
+  InterCrypto.getInterCryptoPrice((error, result) => {
+    if (error)
+      displayDAPPContent('<div class="alert alert-warning" role="alert">' + error + '</div>');
+    else {
+      var value = parseFloat(web3.fromWei(result, 'ether'));
+      document.getElementById('ic_oracalize_cost').innerHTML = "+" + value.toFixed(6);
+      callback(null, value);
+      // return value;
+    }
+  });
+}
+
+function ic_getShapeShiftMarket(callback) {
+  // TODO: make this depend on the dropdown symbol
+
+  $.ajax({
+    type: 'GET',
+    url: 'https://cors.shapeshift.io/marketinfo/eth_btc',
+    crossDomain: true,
+    // data: '{"some":"json"}',
+    // dataType: 'json',
+    success: function(responseData, textStatus, jqXHR) {
+        document.getElementById('ic_shapeshift_minimum').innerHTML = '+' + responseData.minimum.toFixed(6);
+        callback(null, responseData.minimum);
+        // return responseData.minimum;
+    },
+    error: function (responseData, textStatus, errorThrown) {
+        document.getElementById('ic_shapeshift_minimum').innerHTML = '<div class="alert alert-warning" role="alert" align="center">error</div>';
+    }
+  });
+}
+
+function ic_setMinimumCost(cost) {
+  document.getElementById('ic_minimum_cost').innerHTML = '=' + cost.toFixed(6);
 }

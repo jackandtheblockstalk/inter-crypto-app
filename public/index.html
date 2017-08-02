@@ -70,28 +70,16 @@
         <h1>InterCrypto DAPP</h1>
         <p>Send Ether to other blockchains with the InterCrypto DAPP</p>
         <p>See source code on <a href="https://github.com/ugmo04/inter-crypto/blob/master/contracts/InterCrypto.sol">Github</a>
-          <!-- TODO: change this to update based on const address in js file  -->
-          <br>See the live contract on <a href="https://rinkeby.etherscan.io/address/0x248075Bd51aAD583e9F5AfDbee3D306B628E6435">Etherscan</a>
+          <br>See the live contract on <a id='eh' href="com.com">Etherscan</a>
         </p>
         <div id="intercrypto-dapp" align="left">
           <div class="row">
             <div class="col-sm-2">Send Ether to</div>
             <div class="col-sm-4">
-              <!-- <div class="dropdown">
-                <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                  Dropdown
-                  <span class="caret"></span>
-                </button>
-                <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                  <li><a href="#">Bitcoin</a></li>
-                  <li><a href="#">Litecoin</a></li>
-                  <li><a href="#">Ethereum Classic</a></li>
-                </ul>
-              </div> -->
-              <select class="selectpicker" id="ic_symbol">
+              <select class="selectpicker" id="ic_symbol" onchange='ic_updateCost()'>
                 <option>Bitcoin</option>
                 <option selected="selected">Litecoin</option>
-                <option>Dash</option>
+                <option>Ethereum Classic</option>
               </select>
 
             </div>
@@ -100,15 +88,15 @@
             <div class="col-sm-2">Minimum Ether:</div>
             <div class="col-sm-8">
               <div class="row">
-                <div id="oracalize_cost" class="col-sm-2"></div>
+                <div id="ic_oracalize_cost" class="col-sm-2"></div>
                 <div class="col-sm-4">Oracalize cost</div>
               </div>
               <div class="row">
-                <div class="col-sm-2">+ 0.1</div>
+                <div id="ic_shapeshift_minimum" class="col-sm-2"></div>
                 <div class="col-sm-4">ShapeShift minimum</div>
               </div>
               <div class="row">
-                <div class="col-sm-2">= 0.2</div>
+                <div id="ic_minimum_cost" class="col-sm-2"></div>
                 <div class="col-sm-4">Ether</div>
               </div>
 
@@ -141,6 +129,9 @@
         <h1 align="center">About</h1>
         <p>
           Explain use case of InterCrypto
+        </p>
+        <p>
+          Currently supported blockchains: btc, ltc, ppc, drk, doge, nmc, ftc, blk, nxt, btcd, qrk, rdd, nbt, bts, bitusd, xcp, xmr
         </p>
         <p>
           Explain that the website is run client-side only. No Ethereum keys are ever sent to or stored by the website. Check out source code for this page on <a href="https://github.com/ugmo04/inter-crypto-app">Github</a> and run it locally if you like.
