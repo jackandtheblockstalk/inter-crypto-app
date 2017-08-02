@@ -18,31 +18,40 @@ window.onload = function() {
     displayDAPPContent('<div class="alert alert-warning" role="alert" align="center">You need <a href="https://metamask.io/">MetaMask</a> browser plugin to run this DAPP</div>');
   }
   else {
-    networkId = checkNetwork();
-    switch (networkId) {
-      case '1':
-        document.getElementById('top-messages').innerHTML = '<div class="alert alert-success" role="alert">You are connected to mainnet Ethereum blockchain</div>';
-        contractAddress = mainnet_address;
-        etherscan_url = mainnet_etherscan;
-        break;
-      case '4':
-        document.getElementById('top-messages').innerHTML = '<div class="alert alert-success" role="alert">You are connected to the Rinkeby blockchain</div><div class="alert alert-warning" role="alert">If not connected to mainet, then the final function of the InterCrypto DAPP will not work due to the inability to use ShapeShift</div>';
-        contractAddress = rinkeby_address;
-        etherscan_url = rinkeby_etherscan;
-        break;
-      default:
-        document.getElementById('top-messages').innerHTML = '<div class="alert alert-warning" role="alert">You are not connected to a supported blockchain</div>';
-        break;
+    try {
+      web3.version.getNetwork((error, result) => {
+        networkId = result;
+
+        switch (networkId) {
+          case '1':
+            document.getElementById('top-messages').innerHTML = '<div class="alert alert-success" role="alert">You are connected to mainnet Ethereum blockchain</div>';
+            contractAddress = mainnet_address;
+            etherscan_url = mainnet_etherscan;
+            break;
+          case '4':
+            document.getElementById('top-messages').innerHTML = '<div class="alert alert-success" role="alert">You are connected to the Rinkeby blockchain</div><div class="alert alert-warning" role="alert">If not connected to mainet, then the final function of the InterCrypto DAPP will not work due to the inability to use ShapeShift</div>';
+            contractAddress = rinkeby_address;
+            etherscan_url = rinkeby_etherscan;
+            break;
+          default:
+            document.getElementById('top-messages').innerHTML = '<div class="alert alert-warning" role="alert">You are not connected to a supported blockchain</div>';
+            displayDAPPContent('<div class="alert alert-warning" role="alert" align="center">You are not connected to a supported blockchain</div>');
+            break;
+        }
+
+        if (networkId > 0) {
+          myContract = web3.eth.contract(contractABI);
+          InterCrypto = myContract.at(contractAddress);
+          // TODO: Check that InterCrypto is defined, else show message
+
+          ic_updateCost();
+
+          document.getElementById('ic_etherscan_a').href = etherscan_url + 'address/' + contractAddress;
+        }
+      })
     }
-
-    if (networkId > 0) {
-      myContract = web3.eth.contract(contractABI);
-      InterCrypto = myContract.at(contractAddress);
-      // TODO: Check that InterCrypto is defined, else show message
-
-      ic_updateCost();
-
-      document.getElementById('eh').href = etherscan_url + 'address/' + contractAddress;
+    catch(error) {
+      displayDAPPContent('<div class="alert alert-warning" role="alert" align="center">' + error + '</div>');
     }
 
   }
@@ -63,18 +72,25 @@ function getICSymbol() {
 
 function ic_sendToOtherBlockchain() {
   var amountToSend = web3.toWei(document.getElementById("ic_amount").value, 'ether')
-  var symbol;
-  symbol = getICSymbol();
+  var symbol = getICSymbol();
   if (symbol == 0)
     document.getElementById('ic_sendToOtherBlockchain_response').innerHTML = '<div class="alert alert-warning" role="alert>Currency symbol not found</div>';
   else {
     var address = document.getElementById("ic_address").value
-    document.getElementById('ic_sendToOtherBlockchain_response').innerHTML = '<div class="alert alert-success" role="alert">InterCrypto.sendToOtherBlockchain(' + symbol + ', ' + address + ', {value: ' + amountToSend + '}</div>';
+    document.getElementById('ic_sendToOtherBlockchain_response').innerHTML = '<div class="alert alert-success" role="alert">InterCrypto.sendToOtherBlockchain(' + symbol + ', ' + address + ', {value: ' + amountToSend + '})</div>';
+
+    // TODO: send a check query to ShapeShift to check response + deposit address
     InterCrypto.sendToOtherBlockchain(symbol, address, {value: amountToSend}, (error, result) => {
       if (error)
         document.getElementById('ic_sendToOtherBlockchain_response').innerHTML = '<div class="alert alert-warning" role="alert>"' + error + '</div>';
       else {
-        document.getElementById('ic_sendToOtherBlockchain_response').innerHTML = '<div class="alert alert-success" role="alert">Tx: <a href="' + etherscan_url + 'tx/' + result + '">' + result + '</a></div>';
+        var contents = document.getElementById('ic_sendToOtherBlockchain_response').innerHTML;
+        document.getElementById('ic_sendToOtherBlockchain_response').innerHTML = contents + '<div class="alert alert-success" role="alert">Tx: <a href="' + etherscan_url + 'tx/' + result + '">' + result + '</a></div>';
+        var events = InterCrypto.allEvents();
+        events.watch( (error, event) => {
+          if (!error)
+            console.log(event);
+        })
         // TODO: watch for events and display them
       }
     })
@@ -98,16 +114,6 @@ function donate_send() {
 function displayDAPPContent(content) {
   document.getElementById('intercrypto-dapp').innerHTML = content;
   document.getElementById('demo-dapp').innerHTML = content;
-}
-
-function checkNetwork() {
-  try {
-    var value = web3.version.network;
-  }
-  catch(error) {
-    displayDAPPContent('<div class="alert alert-warning" role="alert" align="center">' + error + '</div>')
-  }
-  return value;
 }
 
 function ic_updateCost() {
