@@ -1,5 +1,5 @@
 const contractABI = JSON.parse('[{"constant":false,"inputs":[{"name":"myid","type":"bytes32"},{"name":"result","type":"string"}],"name":"__callback","outputs":[],"payable":false,"type":"function"},{"constant":false,"inputs":[],"name":"withdraw","outputs":[],"payable":false,"type":"function"},{"constant":false,"inputs":[],"name":"kill","outputs":[],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"getInterCryptoPrice","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"constant":false,"inputs":[],"name":"update_oracalize","outputs":[],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"_coinSymbol","type":"string"},{"name":"_toAddress","type":"string"}],"name":"sendToOtherBlockchain","outputs":[{"name":"transactionID","type":"uint256"}],"payable":true,"type":"function"},{"inputs":[],"payable":false,"type":"constructor"},{"payable":true,"type":"fallback"},{"anonymous":false,"inputs":[{"indexed":false,"name":"transactionID","type":"uint256"}],"name":"TransactionSubmitted","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"name":"transactionID","type":"uint256"},{"indexed":false,"name":"depositAddress","type":"address"}],"name":"TransactionMade","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"name":"transactionID","type":"uint256"},{"indexed":false,"name":"reason","type":"string"}],"name":"TransactionAborted","type":"event"}]');
-const rinkeby_address = '0x248075bd51aad583e9f5afdbee3d306b628e6435';
+const rinkeby_address = '0xc58bf02df60d0fa02901cabfd1efa72de155c827';
 const rinkeby_etherscan = 'https://rinkeby.etherscan.io/';
 const mainnet_address = '0x248075bd51aad583e9f5afdbee3d306b628e6435';
 const mainnet_etherscan = 'https://etherscan.io/';
@@ -69,7 +69,6 @@ function ic_sendToOtherBlockchain() {
     document.getElementById('ic_sendToOtherBlockchain_response').innerHTML = '<div class="alert alert-warning" role="alert>Currency symbol not found</div>';
   else {
     var address = document.getElementById("ic_address").value
-    symbol = 'eth_' + symbol;
     document.getElementById('ic_sendToOtherBlockchain_response').innerHTML = '<div class="alert alert-success" role="alert">InterCrypto.sendToOtherBlockchain(' + symbol + ', ' + address + ', {value: ' + amountToSend + '}</div>';
     InterCrypto.sendToOtherBlockchain(symbol, address, {value: amountToSend}, (error, result) => {
       if (error)
