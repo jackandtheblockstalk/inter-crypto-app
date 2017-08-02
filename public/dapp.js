@@ -1,7 +1,12 @@
 const contractABI = JSON.parse('[{"constant":false,"inputs":[{"name":"myid","type":"bytes32"},{"name":"result","type":"string"}],"name":"__callback","outputs":[],"payable":false,"type":"function"},{"constant":false,"inputs":[],"name":"withdraw","outputs":[],"payable":false,"type":"function"},{"constant":false,"inputs":[],"name":"kill","outputs":[],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"getInterCryptoPrice","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"constant":false,"inputs":[],"name":"update_oracalize","outputs":[],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"_coinSymbol","type":"string"},{"name":"_toAddress","type":"string"}],"name":"sendToOtherBlockchain","outputs":[{"name":"transactionID","type":"uint256"}],"payable":true,"type":"function"},{"inputs":[],"payable":false,"type":"constructor"},{"payable":true,"type":"fallback"},{"anonymous":false,"inputs":[{"indexed":false,"name":"transactionID","type":"uint256"}],"name":"TransactionSubmitted","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"name":"transactionID","type":"uint256"},{"indexed":false,"name":"depositAddress","type":"address"}],"name":"TransactionMade","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"name":"transactionID","type":"uint256"},{"indexed":false,"name":"reason","type":"string"}],"name":"TransactionAborted","type":"event"}]');
 const rinkeby_address = '0x248075bd51aad583e9f5afdbee3d306b628e6435';
+const rinkeby_etherscan = 'https://rinkeby.etherscan.io/';
+const mainnet_address = '0x248075bd51aad583e9f5afdbee3d306b628e6435';
+const mainnet_etherscan = 'https://etherscan.io/';
 
+var networkId;
 var contractAddress;
+var etherscan_url;
 var myContract;
 var InterCrypto;
 
@@ -13,13 +18,30 @@ window.onload = function() {
   else {
     // TODO: Check what blockchain is being run and set contract address accordingly.
     // TODO: Show message if that blockchain is not supported...
+    networkId = checkNetwork();
+    switch (networkId) {
+      case '1':
+        document.getElementById('top-messages').innerHTML = '<div class="alert alert-success" role="alert">You are connected to mainnet Ethereum blockchain</div>';
+        contractAddress = mainnet_address;
+        etherscan_url = mainnet_etherscan;
+        break;
+      case '4':
+        document.getElementById('top-messages').innerHTML = '<div class="alert alert-success" role="alert">You are connected to the Rinkeby blockchain</div><div class="alert alert-warning" role="alert">If not connected to mainet, then the final function of the InterCrypto DAPP will not work due to the inability to use ShapeShift</div>';
+        contractAddress = rinkeby_address;
+        etherscan_url = rinkeby_etherscan;
+        break;
+      default:
+        document.getElementById('top-messages').innerHTML = '<div class="alert alert-warning" role="alert">You are not connected to a supported blockchain</div>';
+        break;
+    }
 
-    contractAddress = rinkeby_address;
-    myContract = web3.eth.contract(contractABI);
-    InterCrypto = myContract.at(contractAddress);
-    // TODO: Check that InterCrypto is defined, else show message
+    if (networkId > 0) {
+      myContract = web3.eth.contract(contractABI);
+      InterCrypto = myContract.at(contractAddress);
+      // TODO: Check that InterCrypto is defined, else show message
 
-    ic_getInterCryptoPrice();
+      ic_getInterCryptoPrice();
+    }
   }
 }
 
@@ -36,9 +58,6 @@ function ic_sendToOtherBlockchain() {
     case 'Ethereum Classic':
       symbol = 'etc';
       break;
-    case 'Dash':
-      symbol = 'xxxxxx';
-      break;
     default:
       document.getElementById('ic_sendToOtherBlockchain_response').innerHTML = '<div class="alert alert-warning" role="alert>Currency symbol not found</div>';
   }
@@ -49,7 +68,7 @@ function ic_sendToOtherBlockchain() {
     if (error)
       document.getElementById('ic_sendToOtherBlockchain_response').innerHTML = '<div class="alert alert-warning" role="alert>"' + error + '</div>';
     else
-      document.getElementById('ic_sendToOtherBlockchain_response').innerHTML = '<div class="alert alert-success" role="alert">Tx: ' + result + '</div>';
+      document.getElementById('ic_sendToOtherBlockchain_response').innerHTML = '<div class="alert alert-success" role="alert">Tx: <a href="' + etherscan_url + 'tx/' + result + '">' + result + '</a></div>';
   })
 }
 
@@ -69,7 +88,7 @@ function donate_send() {
     value: web3.toWei(document.getElementById("donate_amount").value, 'ether')
   }, function(error, result) {
     if (!error) {
-      document.getElementById('donate_response').innerHTML = '<div class="alert alert-success" role="alert">Success: <a href="https://testnet.etherscan.io/tx/' + result + '"> View Transaction </a></div>'
+      document.getElementById('donate_response').innerHTML = '<div class="alert alert-success" role="alert">Tx: <a href="' + etherscan_url + 'tx/' + result + '">' + result + '</a></div>'
     } else {
       document.getElementById('donate_response').innerHTML = '<div class="alert alert-warning" role="alert">' + error + '</div>'
     }
@@ -79,4 +98,14 @@ function donate_send() {
 function displayDAPPContent(content) {
   document.getElementById('intercrypto-dapp').innerHTML = content;
   document.getElementById('demo-dapp').innerHTML = content;
+}
+
+function checkNetwork() {
+  try {
+    var value = web3.version.network;
+  }
+  catch(error) {
+    displayDAPPContent('<div class="alert alert-warning" role="alert" align="center">' + error + '</div>')
+  }
+  return value;
 }
