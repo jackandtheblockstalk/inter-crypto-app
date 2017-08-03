@@ -95,6 +95,7 @@ function ic_sendToOtherBlockchain() {
             var appendMessage = '<div class="alert alert-success" role="alert">Tx: <a href="' + etherscan_url + 'tx/' + result + '">' + result + '</a></div>';
             updateElement('ic_sendToOtherBlockchain_response', appendMessage);
 
+            // TODO: change so that the app is always watching the contract and updaing, not just after a function call
             // Start watching for events and display a message when they appear
             var eventTransactionStarted = InterCrypto.TransactionStarted();
             // Check that transaction was not aborted before started
@@ -187,6 +188,8 @@ function displayDAPPContent(content) {
 function ic_updateCost() {
   var blockchain_name = document.getElementById('ic_symbol').value;
   document.getElementById('ic_blockchain').innerHTML = blockchain_name;
+
+  // TODO: update ic_address baseon on blockchain
   ic_getInterCryptoPrice((error, result1) => {
     ic_getShapeShiftMarket( (error, result2) =>{
       ic_setMinimumCost(result1 + result2);
