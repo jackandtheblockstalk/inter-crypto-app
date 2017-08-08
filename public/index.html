@@ -56,7 +56,7 @@
       <!-- Demo DAPP -->
       <div id="demo" class="container dapp-text" align="center" style="background-color:lightblue">
         <h1>InterCrypto Wallet</h1>
-        <p>The InterCrypto Wallet is a simple contract that allows the owner to withdraw Ether by sending it to another blockchain by using the InterCrypto API.</p>
+        <p>The InterCrypto Wallet is a simple contract that allows the owner to withdraw Ether by sending it to a cryptocurrency address on a different blockchain by using the InterCrypto API.</p>
         <p>See source code on <a href="https://github.com/ugmo04/inter-crypto/blob/master/contracts/InterCrypto_Demo.sol">Github</a>
           <br>See the live contract on <a id="demo_etherscan_a" href="">Etherscan</a>
         </p>
@@ -70,6 +70,7 @@
           </div>
           <div align="center">
             <button type="button" class="btn btn-lg btn-primary" onclick="demo_deposit()">Deposit</button>
+            <br>
             <div id="demo_deposit_response"></div>
           </div>
 
@@ -94,7 +95,8 @@
           </div>
           <div align="center">
             <button type="button" class="btn btn-lg btn-primary" onclick="demo_withdrawal()">Withdrawal</button>
-            <div id="demo_withdrawa l_response"></div>
+            <br>
+            <div id="demo_withdrawal_response"></div>
           </div>
 
         </div>
@@ -157,6 +159,7 @@
           </div>
           <div align="center">
             <button type="button" class="btn btn-lg btn-primary" onclick="ic_sendToOtherBlockchain()">Send</button>
+            <br>
             <div id="ic_sendToOtherBlockchain_response"></div>
           </div>
         </div>

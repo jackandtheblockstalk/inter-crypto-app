@@ -1,8 +1,8 @@
 const ic_contractABI = JSON.parse('[{"constant":false,"inputs":[{"name":"myid","type":"bytes32"},{"name":"result","type":"string"}],"name":"__callback","outputs":[],"payable":false,"type":"function"},{"constant":false,"inputs":[],"name":"kill","outputs":[],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"getInterCryptoPrice","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"constant":false,"inputs":[],"name":"update_oracalize","outputs":[],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"_coinSymbol","type":"string"},{"name":"_toAddress","type":"string"}],"name":"sendToOtherBlockchain","outputs":[{"name":"transactionID","type":"uint256"}],"payable":true,"type":"function"},{"constant":false,"inputs":[],"name":"recover","outputs":[],"payable":false,"type":"function"},{"inputs":[],"payable":false,"type":"constructor"},{"payable":true,"type":"fallback"},{"anonymous":false,"inputs":[{"indexed":false,"name":"transactionID","type":"uint256"}],"name":"TransactionStarted","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"name":"transactionID","type":"uint256"},{"indexed":false,"name":"depositAddress","type":"address"}],"name":"TransactionSentToShapeShift","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"name":"transactionID","type":"uint256"},{"indexed":false,"name":"reason","type":"string"}],"name":"TransactionAborted","type":"event"}]');
-const demo_contractABI = JSON.parse('[{"constant":true,"inputs":[],"name":"intercrypto_GetInterCryptoPrice","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"constant":false,"inputs":[],"name":"withdrawNormal","outputs":[],"payable":false,"type":"function"},{"constant":false,"inputs":[],"name":"kill","outputs":[],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"_coinSymbol","type":"string"},{"name":"_toAddress","type":"string"}],"name":"intercrypto_SendToOtherBlockchain","outputs":[],"payable":true,"type":"function"},{"constant":true,"inputs":[],"name":"interCrypto","outputs":[{"name":"","type":"address"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"king_or_queen","outputs":[{"name":"","type":"address"}],"payable":false,"type":"function"},{"constant":false,"inputs":[],"name":"intercrypto_Recover","outputs":[],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"ethSum","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"inputs":[],"payable":false,"type":"constructor"},{"payable":true,"type":"fallback"},{"anonymous":false,"inputs":[{"indexed":false,"name":"transactionID","type":"uint256"}],"name":"Transaction","type":"event"}]');
+const demo_contractABI = JSON.parse('[{"constant":true,"inputs":[],"name":"intercrypto_GetInterCryptoPrice","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"constant":false,"inputs":[],"name":"withdrawNormal","outputs":[],"payable":false,"type":"function"},{"constant":false,"inputs":[],"name":"kill","outputs":[],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"_coinSymbol","type":"string"},{"name":"_toAddress","type":"string"}],"name":"intercrypto_SendToOtherBlockchain","outputs":[],"payable":true,"type":"function"},{"constant":true,"inputs":[],"name":"interCrypto","outputs":[{"name":"","type":"address"}],"payable":false,"type":"function"},{"constant":false,"inputs":[],"name":"intercrypto_Recover","outputs":[],"payable":false,"type":"function"},{"inputs":[],"payable":false,"type":"constructor"},{"payable":true,"type":"fallback"},{"anonymous":false,"inputs":[],"name":"Deposit","type":"event"},{"anonymous":false,"inputs":[],"name":"WithdrawalNormal","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"name":"transactionID","type":"uint256"}],"name":"WithdrawalInterCrypto","type":"event"}]');
 
 const rinkeby_ic_address = '0xc58bf02df60d0fa02901cabfd1efa72de155c827';
-const rinkeby_demo_address = '0x79831c281d7580710cf94f99bc8629a67438e3c2';
+const rinkeby_demo_address = '0x5802b4d3b1d46f1b6a3031f1eba4c2fa67aa2a5b';
 const rinkeby_etherscan = 'https://rinkeby.etherscan.io/';
 const mainnet_ic_address = ''; // ADD ME!!!!!!!!!!!!!!!!!!!!!!!!!
 const mainnet_demo_address = ''; // ADD ME!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -14,8 +14,10 @@ var networkId;
 var ic_contractAddress;
 var demo_contractAddress;
 var etherscan_url;
-var myContract;
+var ic_myContract;
+var demo_myContract;
 var InterCrypto;
+var InterCrypto_Demo;
 
 // MetaMask injects the web3 library for us.
 window.onload = function() {
@@ -47,11 +49,11 @@ window.onload = function() {
         }
 
         if (networkId > 0) {
-          myContract = web3.eth.contract(ic_contractABI);
-          InterCrypto = myContract.at(ic_contractAddress);
+          ic_myContract = web3.eth.contract(ic_contractABI);
+          InterCrypto = ic_myContract.at(ic_contractAddress);
 
-          myContract = web3.eth.contract(demo_contractABI);
-          InterCrypto_Demo = myContract.at(ic_contractAddress);
+          demo_myContract = web3.eth.contract(demo_contractABI);
+          InterCrypto_Demo = demo_myContract.at(demo_contractAddress);
 
           ic_update();
 
@@ -74,9 +76,26 @@ window.onload = function() {
           InterCrypto.TransactionSentToShapeShift((error, result) => {
             if (!error) {
               transactionIDresult = result.args.transactionID;
-              updateElement('ic_sendToOtherBlockchain_response', '<div class="alert alert-success" role="alert">TransactionSentToShapeShift(transactionID: ' + transactionIDresult + ', depositAddress: ' + result.args.depositAddress + ')</div>');
+              updateElement('ic_sendToOtherBlockchain_response', '<div class="alert alert-success" role="alert">TransactionSentToShapeShift(transactionID: ' + transactionIDresult + ', depositAddress: <a href="' + etherscan_url + 'address/' + result.args.depositAddress + '">' + result.args.depositAddress + ')</div>');
             }
           });
+          InterCrypto_Demo.Deposit( (error, result) => {
+            if (!error) {
+              updateElement('demo_deposit_response', '<div class="alert alert-success" role="alert">Deposit()</div>');
+            }
+          });
+          InterCrypto_Demo.WithdrawalNormal( (error, result) => {
+            if (!error) {
+              updateElement('demo_withdrawal_response', '<div class="alert alert-success" role="alert">WithdrawalNormal()</div>');
+            }
+          });
+          InterCrypto_Demo.WithdrawalInterCrypto( (error, result) => {
+            if (!error) {
+              transactionIDresult = result.args.transactionID;
+              updateElement('demo_withdrawal_response', '<div class="alert alert-success" role="alert">WithdrawalInterCrypto(transactionID: ' + transactionIDresult + ')</div>');
+            }
+          });
+
 
         }
       })
@@ -88,8 +107,8 @@ window.onload = function() {
   }
 }
 
-function getICSymbol() {
-  switch (document.getElementById('ic_symbol').value) {
+function getICSymbol(ic_symbol) {
+  switch (ic_symbol) {
     case 'Bitcoin':
       return 'btc';
     case 'Litecoin':
@@ -119,39 +138,6 @@ function getICAddress(ic_symbol) {
       return 'DMAFvwTH2upni7eTau8au6Rktgm2bUkMei';
     default:
       return 0;
-  }
-}
-
-function ic_sendToOtherBlockchain() {
-  var amountToSend = web3.toWei(document.getElementById("ic_amount").value, 'ether')
-  var symbol = getICSymbol();
-  if (symbol == 0)
-    document.getElementById('ic_sendToOtherBlockchain_response').innerHTML = '<div class="alert alert-warning" role="alert>Currency symbol not found</div>';
-  else {
-    // symbol += "xxxxx"; // useme to trip up the input and show desired error warnings
-    var address = document.getElementById("ic_address").value
-    updateElement('ic_sendToOtherBlockchain_response', '<div class="alert alert-success" role="alert">InterCrypto.sendToOtherBlockchain("' + symbol + '", "' + address + '", {value: ' + amountToSend + '})</div>');
-    // checkShapeShift(symbol, address, (error, result) => {
-    //   if (error) {
-    //     console.log(error)
-    //     updateElement('ic_sendToOtherBlockchain_response', '<div class="alert alert-danger" role="alert>ShapeShift failed to recognize the request</div>');
-    //   }
-    //   else {
-    //     console.log(result);
-        // TODO: check that result.deposit is not undefined
-
-        InterCrypto.sendToOtherBlockchain(symbol, address, {value: amountToSend}, (error, result) => {
-          if (error)
-            updateElement('ic_sendToOtherBlockchain_response', '<div class="alert alert-warning" role="alert>' + error + '</div>');
-          else {
-            updateElement('ic_sendToOtherBlockchain_response', '<div class="alert alert-success" role="alert">Tx: <a href="' + etherscan_url + 'tx/' + result + '">' + result + '</a></div>');
-          }
-        });
-
-
-    //   }
-    // })
-
   }
 }
 
@@ -211,12 +197,6 @@ function ic_update() {
   });
 }
 
-function demo_update() {
-  var blockchain_name = document.getElementById('demo_symbol').value;
-  document.getElementById('demo_blockchain').innerHTML = blockchain_name;
-  document.getElementById('demo_address').value = getICAddress(blockchain_name);
-}
-
 function ic_getInterCryptoPrice(callback) {
   InterCrypto.getInterCryptoPrice((error, result) => {
     if (error)
@@ -230,7 +210,7 @@ function ic_getInterCryptoPrice(callback) {
 }
 
 function ic_getShapeShiftMarket(callback) {
-  var symbol = getICSymbol();
+  var symbol = getICSymbol(document.getElementById('ic_symbol').value);
   if (symbol == 0)
     document.getElementById('ic_sendToOtherBlockchain_response').innerHTML = '<div class="alert alert-warning" role="alert>Currency symbol not found</div>';
   else {
@@ -253,4 +233,64 @@ function ic_getShapeShiftMarket(callback) {
 
 function ic_setMinimumCost(cost) {
   document.getElementById('ic_minimum_cost').innerHTML = '=' + cost.toFixed(6);
+}
+
+function ic_sendToOtherBlockchain() {
+  var amountToSend = web3.toWei(document.getElementById("ic_amount").value, 'ether')
+  var symbol = getICSymbol(document.getElementById('ic_symbol').value);
+  if (symbol == 0)
+    document.getElementById('ic_sendToOtherBlockchain_response').innerHTML = '<div class="alert alert-warning" role="alert>Currency symbol not found</div>';
+  else {
+    // symbol += "xxxxx"; // useme to trip up the input and show desired error warnings
+    var address = document.getElementById("ic_address").value
+    updateElement('ic_sendToOtherBlockchain_response', '<div class="alert alert-success" role="alert">InterCrypto.sendToOtherBlockchain("' + symbol + '", "' + address + '", {value: ' + amountToSend + '})</div>');
+
+    InterCrypto.sendToOtherBlockchain(symbol, address, {value: amountToSend}, (error, result) => {
+      if (error)
+        updateElement('ic_sendToOtherBlockchain_response', '<div class="alert alert-warning" role="alert>' + error + '</div>');
+      else {
+        updateElement('ic_sendToOtherBlockchain_response', '<div class="alert alert-success" role="alert">Tx: <a href="' + etherscan_url + 'tx/' + result + '">' + result + '</a></div>');
+      }
+    });
+  }
+}
+
+function demo_update() {
+  var blockchain_name = document.getElementById('demo_symbol').value;
+  document.getElementById('demo_blockchain').innerHTML = blockchain_name;
+  document.getElementById('demo_address').value = getICAddress(blockchain_name);
+}
+
+function demo_deposit() {
+  web3.eth.sendTransaction({
+    from: web3.eth.coinbase,
+    to: demo_contractAddress,
+    value: web3.toWei(document.getElementById("demo_amount").value, 'ether')
+  }, function(error, result) {
+    if (!error) {
+      updateElement('demo_deposit_response', '<div class="alert alert-success" role="alert">Tx: <a href="' + etherscan_url + 'tx/' + result + '">' + result + '</a></div>');
+      // document.getElementById('demo_deposit_response').innerHTML = '<div class="alert alert-success" role="alert">Tx: <a href="' + etherscan_url + 'tx/' + result + '">' + result + '</a></div>'
+    } else {
+      updateElement('demo_deposit_response', '<div class="alert alert-warning" role="alert">' + error + '</div>');
+    }
+  })
+}
+
+function demo_withdrawal() {
+  var symbol = getICSymbol(document.getElementById('demo_symbol').value);
+  if (symbol == 0)
+    document.getElementById('demo_withdrawal_response').innerHTML = '<div class="alert alert-warning" role="alert>Currency symbol not found</div>';
+  else {
+    // symbol += "xxxxx"; // useme to trip up the input and show desired error warnings
+    var address = document.getElementById("demo_address").value
+    // updateElement('demo_withdrawal_response', '<div class="alert alert-success" role="alert">InterCrypto.sendToOtherBlockchain("' + symbol + '", "' + address + '", {value: ' + amountToSend + '})</div>');
+
+    InterCrypto_Demo.intercrypto_SendToOtherBlockchain(symbol, address, {from: web3.eth.coinbase}, (error, result) => {
+      if (error)
+        updateElement('demo_withdrawal_response', '<div class="alert alert-warning" role="alert>' + error + '</div>');
+      else {
+        updateElement('demo_withdrawal_response', '<div class="alert alert-success" role="alert">Tx: <a href="' + etherscan_url + 'tx/' + result + '">' + result + '</a></div>');
+      }
+    });
+  }
 }
