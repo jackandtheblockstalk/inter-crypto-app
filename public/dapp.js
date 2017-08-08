@@ -1,13 +1,18 @@
-const contractABI = JSON.parse('[{"constant":false,"inputs":[{"name":"myid","type":"bytes32"},{"name":"result","type":"string"}],"name":"__callback","outputs":[],"payable":false,"type":"function"},{"constant":false,"inputs":[],"name":"kill","outputs":[],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"getInterCryptoPrice","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"constant":false,"inputs":[],"name":"update_oracalize","outputs":[],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"_coinSymbol","type":"string"},{"name":"_toAddress","type":"string"}],"name":"sendToOtherBlockchain","outputs":[{"name":"transactionID","type":"uint256"}],"payable":true,"type":"function"},{"inputs":[],"payable":false,"type":"constructor"},{"payable":true,"type":"fallback"},{"anonymous":false,"inputs":[{"indexed":false,"name":"transactionID","type":"uint256"}],"name":"TransactionStarted","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"name":"transactionID","type":"uint256"},{"indexed":false,"name":"depositAddress","type":"address"}],"name":"TransactionSentToShapeShift","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"name":"transactionID","type":"uint256"},{"indexed":false,"name":"reason","type":"string"}],"name":"TransactionAborted","type":"event"}]');
-const rinkeby_address = '0xc58bf02df60d0fa02901cabfd1efa72de155c827';
+const ic_contractABI = JSON.parse('[{"constant":false,"inputs":[{"name":"myid","type":"bytes32"},{"name":"result","type":"string"}],"name":"__callback","outputs":[],"payable":false,"type":"function"},{"constant":false,"inputs":[],"name":"kill","outputs":[],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"getInterCryptoPrice","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"constant":false,"inputs":[],"name":"update_oracalize","outputs":[],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"_coinSymbol","type":"string"},{"name":"_toAddress","type":"string"}],"name":"sendToOtherBlockchain","outputs":[{"name":"transactionID","type":"uint256"}],"payable":true,"type":"function"},{"constant":false,"inputs":[],"name":"recover","outputs":[],"payable":false,"type":"function"},{"inputs":[],"payable":false,"type":"constructor"},{"payable":true,"type":"fallback"},{"anonymous":false,"inputs":[{"indexed":false,"name":"transactionID","type":"uint256"}],"name":"TransactionStarted","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"name":"transactionID","type":"uint256"},{"indexed":false,"name":"depositAddress","type":"address"}],"name":"TransactionSentToShapeShift","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"name":"transactionID","type":"uint256"},{"indexed":false,"name":"reason","type":"string"}],"name":"TransactionAborted","type":"event"}]');
+const demo_contractABI = JSON.parse('[{"constant":true,"inputs":[],"name":"intercrypto_GetInterCryptoPrice","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"constant":false,"inputs":[],"name":"withdrawNormal","outputs":[],"payable":false,"type":"function"},{"constant":false,"inputs":[],"name":"kill","outputs":[],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"_coinSymbol","type":"string"},{"name":"_toAddress","type":"string"}],"name":"intercrypto_SendToOtherBlockchain","outputs":[],"payable":true,"type":"function"},{"constant":true,"inputs":[],"name":"interCrypto","outputs":[{"name":"","type":"address"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"king_or_queen","outputs":[{"name":"","type":"address"}],"payable":false,"type":"function"},{"constant":false,"inputs":[],"name":"intercrypto_Recover","outputs":[],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"ethSum","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"inputs":[],"payable":false,"type":"constructor"},{"payable":true,"type":"fallback"},{"anonymous":false,"inputs":[{"indexed":false,"name":"transactionID","type":"uint256"}],"name":"Transaction","type":"event"}]');
+
+const rinkeby_ic_address = '0xc58bf02df60d0fa02901cabfd1efa72de155c827';
+const rinkeby_demo_address = '0x79831c281d7580710cf94f99bc8629a67438e3c2';
 const rinkeby_etherscan = 'https://rinkeby.etherscan.io/';
-const mainnet_address = '0x248075bd51aad583e9f5afdbee3d306b628e6435';
+const mainnet_ic_address = ''; // ADD ME!!!!!!!!!!!!!!!!!!!!!!!!!
+const mainnet_demo_address = ''; // ADD ME!!!!!!!!!!!!!!!!!!!!!!!!!
 const mainnet_etherscan = 'https://etherscan.io/';
 
 const myAddress = '0x61b122c456b72aef1fe767ee5b2ac486356e6c45';
 
 var networkId;
-var contractAddress;
+var ic_contractAddress;
+var demo_contractAddress;
 var etherscan_url;
 var myContract;
 var InterCrypto;
@@ -25,12 +30,14 @@ window.onload = function() {
         switch (networkId) {
           case '1':
             document.getElementById('top-messages').innerHTML = '<div class="alert alert-success" role="alert">You are connected to mainnet Ethereum blockchain</div>';
-            contractAddress = mainnet_address;
+            ic_contractAddress = mainnet_ic_address;
+            demo_contractAddress = mainnet_demo_address;
             etherscan_url = mainnet_etherscan;
             break;
           case '4':
             document.getElementById('top-messages').innerHTML = '<div class="alert alert-success" role="alert">You are connected to the Rinkeby blockchain</div><div class="alert alert-warning" role="alert">If not connected to mainet, then the final function of the InterCrypto DAPP will not work due to the inability to use ShapeShift</div>';
-            contractAddress = rinkeby_address;
+            ic_contractAddress = rinkeby_ic_address;
+            demo_contractAddress = rinkeby_demo_address;
             etherscan_url = rinkeby_etherscan;
             break;
           default:
@@ -40,13 +47,37 @@ window.onload = function() {
         }
 
         if (networkId > 0) {
-          myContract = web3.eth.contract(contractABI);
-          InterCrypto = myContract.at(contractAddress);
-          // TODO: Check that InterCrypto is defined, else show message
+          myContract = web3.eth.contract(ic_contractABI);
+          InterCrypto = myContract.at(ic_contractAddress);
 
-          ic_updateCost();
+          myContract = web3.eth.contract(demo_contractABI);
+          InterCrypto_Demo = myContract.at(ic_contractAddress);
 
-          document.getElementById('ic_etherscan_a').href = etherscan_url + 'address/' + contractAddress;
+          ic_update();
+
+          document.getElementById('ic_etherscan_a').href = etherscan_url + 'address/' + ic_contractAddress;
+          document.getElementById('demo_etherscan_a').href = etherscan_url + 'address/' + demo_contractAddress;
+
+          // Start watching InterCrypto contract
+          InterCrypto.TransactionStarted((error, result) => {
+            if (!error) {
+              transactionIDresult = result.args.transactionID;
+              updateElement('ic_sendToOtherBlockchain_response', '<div class="alert alert-info" role="alert">TransactionStarted(transactionID: ' + transactionIDresult + ')</div>');
+            }
+          });
+          InterCrypto.TransactionAborted((error, result) => {
+            if (!error) {
+              transactionIDresult = result.args.transactionID;
+              updateElement('ic_sendToOtherBlockchain_response', '<div class="alert alert-danger" role="alert">TransactionAborted(transactionID: ' + transactionIDresult + ', reason: ' + result.args.reason + ')</div>');
+            }
+          });
+          InterCrypto.TransactionSentToShapeShift((error, result) => {
+            if (!error) {
+              transactionIDresult = result.args.transactionID;
+              updateElement('ic_sendToOtherBlockchain_response', '<div class="alert alert-success" role="alert">TransactionSentToShapeShift(transactionID: ' + transactionIDresult + ', depositAddress: ' + result.args.depositAddress + ')</div>');
+            }
+          });
+
         }
       })
     }
@@ -63,8 +94,29 @@ function getICSymbol() {
       return 'btc';
     case 'Litecoin':
       return 'ltc';
-    case 'Ethereum Classic':
-      return 'etc';
+    case 'Dash':
+      return 'dash';
+    case 'ZCash':
+      return 'zec';
+    case 'Dogecoin':
+      return 'doge';
+    default:
+      return 0;
+  }
+}
+
+function getICAddress(ic_symbol) {
+  switch (ic_symbol) {
+    case 'Bitcoin':
+      return '1L8oRijgmkfcZDYA21b73b6DewLtyYs87s';
+    case 'Litecoin':
+      return 'LbZcDdMeP96ko85H21TQii98YFF9RgZg3D';
+    case 'Dash':
+      return 'Xoopows17idkTwNrMZuySXBwQDorsezQAx';
+    case 'ZCash':
+      return 't1N7tf1xRxz5cBK51JADijLDWS592FPJtya';
+    case 'Dogecoin':
+      return 'DMAFvwTH2upni7eTau8au6Rktgm2bUkMei';
     default:
       return 0;
   }
@@ -78,8 +130,7 @@ function ic_sendToOtherBlockchain() {
   else {
     // symbol += "xxxxx"; // useme to trip up the input and show desired error warnings
     var address = document.getElementById("ic_address").value
-    document.getElementById('ic_sendToOtherBlockchain_response').innerHTML = '<div class="alert alert-success" role="alert">InterCrypto.sendToOtherBlockchain("' + symbol + '", "' + address + '", {value: ' + amountToSend + '})</div>';
-
+    updateElement('ic_sendToOtherBlockchain_response', '<div class="alert alert-success" role="alert">InterCrypto.sendToOtherBlockchain("' + symbol + '", "' + address + '", {value: ' + amountToSend + '})</div>');
     // checkShapeShift(symbol, address, (error, result) => {
     //   if (error) {
     //     console.log(error)
@@ -88,53 +139,16 @@ function ic_sendToOtherBlockchain() {
     //   else {
     //     console.log(result);
         // TODO: check that result.deposit is not undefined
+
         InterCrypto.sendToOtherBlockchain(symbol, address, {value: amountToSend}, (error, result) => {
           if (error)
-            document.getElementById('ic_sendToOtherBlockchain_response').innerHTML = '<div class="alert alert-warning" role="alert>' + error + '</div>';
+            updateElement('ic_sendToOtherBlockchain_response', '<div class="alert alert-warning" role="alert>' + error + '</div>');
           else {
-            var appendMessage = '<div class="alert alert-success" role="alert">Tx: <a href="' + etherscan_url + 'tx/' + result + '">' + result + '</a></div>';
-            updateElement('ic_sendToOtherBlockchain_response', appendMessage);
-
-            // TODO: change so that the app is always watching the contract and updaing, not just after a function call
-            // Start watching for events and display a message when they appear
-            var eventTransactionStarted = InterCrypto.TransactionStarted();
-            // Check that transaction was not aborted before started
-            var eventTransactionAborted = InterCrypto.TransactionAborted();
-
-            eventTransactionAborted.watch( (error, result) => {
-              if (!error) {
-                transactionIDresult = result.args.transactionID;
-                updateElement('ic_sendToOtherBlockchain_response', '<div class="alert alert-danger" role="alert">TransactionAborted(transactionID: ' + result.args.transactionID + ', reason: ' + result.args.reason + ')</div>');
-                eventTransactionStarted.stopWatching();
-                eventTransactionAborted.stopWatching();
-              }
-            })
-
-            eventTransactionStarted.watch((error, result) => {
-              if (!error) {
-                transactionIDresult = result.args.transactionID;
-                updateElement('ic_sendToOtherBlockchain_response', '<div class="alert alert-info" role="alert">TransactionStarted(transactionID: ' + transactionIDresult + ')</div>');
-                eventTransactionStarted.stopWatching();
-
-                // Start watching for abort or send events
-                var eventTransactionSentToShapeShift = InterCrypto.TransactionSentToShapeShift({transactionID: transactionIDresult});
-                var eventTransactionAborted = InterCrypto.TransactionAborted({transactionID: transactionIDresult});
-                eventTransactionSentToShapeShift.watch((error, result) => {
-                  if (!error) {
-                    updateElement('ic_sendToOtherBlockchain_response', '<div class="alert alert-success" role="alert">TransactionSentToShapeShift(transactionID: ' + result.args.transactionID + ', depositAddress: ' + result.args.depositAddress + ')</div>');
-                    eventTransactionSentToShapeShift.stopWatching();
-                  }
-                });
-                eventTransactionAborted.watch((error, result) => {
-                  if (!error) {
-                    updateElement('ic_sendToOtherBlockchain_response', '<div class="alert alert-danger" role="alert">TransactionAborted(transactionID: ' + result.args.transactionID + ', reason: ' + result.args.reason + ')</div>');
-                    eventTransactionAborted.stopWatching();
-                  }
-                });
-              }
-            });
+            updateElement('ic_sendToOtherBlockchain_response', '<div class="alert alert-success" role="alert">Tx: <a href="' + etherscan_url + 'tx/' + result + '">' + result + '</a></div>');
           }
         });
+
+
     //   }
     // })
 
@@ -185,16 +199,22 @@ function displayDAPPContent(content) {
   document.getElementById('demo-dapp').innerHTML = content;
 }
 
-function ic_updateCost() {
+function ic_update() {
   var blockchain_name = document.getElementById('ic_symbol').value;
   document.getElementById('ic_blockchain').innerHTML = blockchain_name;
+  document.getElementById('ic_address').value = getICAddress(blockchain_name);
 
-  // TODO: update ic_address baseon on blockchain
   ic_getInterCryptoPrice((error, result1) => {
     ic_getShapeShiftMarket( (error, result2) =>{
       ic_setMinimumCost(result1 + result2);
     })
   });
+}
+
+function demo_update() {
+  var blockchain_name = document.getElementById('demo_symbol').value;
+  document.getElementById('demo_blockchain').innerHTML = blockchain_name;
+  document.getElementById('demo_address').value = getICAddress(blockchain_name);
 }
 
 function ic_getInterCryptoPrice(callback) {

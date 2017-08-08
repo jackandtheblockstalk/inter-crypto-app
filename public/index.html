@@ -32,10 +32,10 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
                     <li>
-                        <a class="page-scroll" href="#demo">Demo</a>
+                        <a class="page-scroll" href="#demo">Wallet</a>
                     </li>
                     <li>
-                        <a class="page-scroll" href="#dapp">DAPP</a>
+                        <a class="page-scroll" href="#dapp">InterCrypto</a>
                     </li>
                     <li>
                         <a class="page-scroll" href="#about">About</a>
@@ -54,19 +54,56 @@
       </div>
 
       <!-- Demo DAPP -->
-      <div id="demo" class="container dapp-text" align="center">
-        <h1>Demo DAPP</h1>
-        <p>The demo DAPP does... This simple DAPP uses the InterCrypto API and can pay out users to another blockchain.</p>
-        <p>See source code on <a href="">Github</a>
-          <br>See the live contract on <a href="">Etherscan</a>
+      <div id="demo" class="container dapp-text" align="center" style="background-color:lightblue">
+        <h1>InterCrypto Wallet</h1>
+        <p>The InterCrypto Wallet is a simple contract that allows the owner to withdraw Ether by sending it to another blockchain by using the InterCrypto API.</p>
+        <p>See source code on <a href="https://github.com/ugmo04/inter-crypto/blob/master/contracts/InterCrypto_Demo.sol">Github</a>
+          <br>See the live contract on <a id="demo_etherscan_a" href="">Etherscan</a>
         </p>
         <div id="demo-dapp" align="letf">
-          <div class="alert alert-success" role="alert">Interactive Demo DAPP will go here</div>
+          <div class="row">
+            <div class="col-sm-2">Deposit to wallet</div>
+            <div class="col-sm-4">
+              <input type="text" id="demo_amount" value="0.1"></input>
+              Ether
+            </div>
+          </div>
+          <div align="center">
+            <button type="button" class="btn btn-lg btn-primary" onclick="demo_deposit()">Deposit</button>
+            <div id="demo_deposit_response"></div>
+          </div>
+
+          <div class="row" align="left">
+            <div class="col-sm-2">Withdraw to</div>
+            <div class="col-sm-4">
+              <select class="selectpicker" id="demo_symbol"  onchange='demo_update()'>
+                <option>Bitcoin</option>
+                <option selected="selected">Litecoin</option>
+                <option>Dash</option>
+                <option>ZCash</option>
+                <option>Dogecoin</option>
+              </select>
+            </div>
+          </div>
+          <div class="row" align="left">
+            <div class="col-sm-2">Address</div>
+            <div class="col-sm-8">
+              <input type="text" id="demo_address" value="LbZcDdMeP96ko85H21TQii98YFF9RgZg3D"></input>
+              on the <span id="demo_blockchain">Litecoin</span> blockchain
+            </div>
+          </div>
+          <div align="center">
+            <button type="button" class="btn btn-lg btn-primary" onclick="demo_withdrawal()">Withdrawal</button>
+            <div id="demo_withdrawa l_response"></div>
+          </div>
+
         </div>
+        <br>
       </div>
+      <br>
 
       <!-- InterCrypto DAPP -->
-      <div id="dapp" class="container dapp-text" align="center">
+      <div id="dapp" class="container dapp-text" align="center" style="background-color:lightgreen">
         <h1>InterCrypto DAPP</h1>
         <p>Send Ether to other blockchains with the InterCrypto DAPP</p>
         <p>See source code on <a href="https://github.com/ugmo04/inter-crypto/blob/master/contracts/InterCrypto.sol">Github</a>
@@ -76,10 +113,12 @@
           <div class="row">
             <div class="col-sm-2">Send Ether to</div>
             <div class="col-sm-4">
-              <select class="selectpicker" id="ic_symbol" onchange='ic_updateCost()'>
+              <select class="selectpicker" id="ic_symbol" onchange='ic_update()'>
                 <option>Bitcoin</option>
                 <option selected="selected">Litecoin</option>
-                <option>Ethereum Classic</option>
+                <option>Dash</option>
+                <option>ZCash</option>
+                <option>Dogecoin</option>
               </select>
 
             </div>
@@ -121,6 +160,7 @@
             <div id="ic_sendToOtherBlockchain_response"></div>
           </div>
         </div>
+        <br>
       </div>
 
       <!-- About -->
