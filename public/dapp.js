@@ -337,9 +337,9 @@ function demo_withdrawal() {
     document.getElementById('demo_withdrawal_response').innerHTML = '<div class="alert alert-warning" role="alert>Currency symbol not found</div>';
   else {
     // symbol += "xxxxx"; // useme to trip up the input and show desired error warnings
-    var address = document.getElementById("demo_address").value
-    // updateElement('demo_withdrawal_response', '<div class="alert alert-success" role="alert">InterCrypto.sendToOtherBlockchain("' + symbol + '", "' + address + '", {value: ' + amountToSend + '})</div>');
+    var address = document.getElementById("demo_address").value;
 
+    // TODO: check that address and symbol are valid
     InterCrypto_Demo.intercrypto_SendToOtherBlockchain(symbol, address, {from: web3.eth.coinbase}, (error, result) => {
       if (error)
         updateElement('demo_withdrawal_response', '<div class="alert alert-warning" role="alert>' + error + '</div>');
