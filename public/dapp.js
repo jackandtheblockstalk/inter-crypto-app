@@ -2,7 +2,7 @@ const ic_contractABI = JSON.parse('[{"constant":false,"inputs":[{"name":"myid","
 const demo_contractABI = JSON.parse('[{"constant":true,"inputs":[],"name":"intercrypto_GetInterCryptoPrice","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"constant":false,"inputs":[],"name":"withdrawNormal","outputs":[],"payable":false,"type":"function"},{"constant":false,"inputs":[],"name":"kill","outputs":[],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"_coinSymbol","type":"string"},{"name":"_toAddress","type":"string"}],"name":"intercrypto_SendToOtherBlockchain","outputs":[],"payable":true,"type":"function"},{"constant":true,"inputs":[],"name":"interCrypto","outputs":[{"name":"","type":"address"}],"payable":false,"type":"function"},{"constant":false,"inputs":[],"name":"intercrypto_Recover","outputs":[],"payable":false,"type":"function"},{"inputs":[],"payable":false,"type":"constructor"},{"payable":true,"type":"fallback"},{"anonymous":false,"inputs":[],"name":"Deposit","type":"event"},{"anonymous":false,"inputs":[],"name":"WithdrawalNormal","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"name":"transactionID","type":"uint256"}],"name":"WithdrawalInterCrypto","type":"event"}]');
 
 const rinkeby_ic_address = '0xc58bf02df60d0fa02901cabfd1efa72de155c827';
-const rinkeby_demo_address = '0x5802b4d3b1d46f1b6a3031f1eba4c2fa67aa2a5b';
+const rinkeby_demo_address = '0xa8f90dd712b3dac9fbcf564f799c010b03edfba7';
 const rinkeby_etherscan = 'https://rinkeby.etherscan.io/';
 const mainnet_ic_address = ''; // ADD ME!!!!!!!!!!!!!!!!!!!!!!!!!
 const mainnet_demo_address = ''; // ADD ME!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -18,6 +18,7 @@ var ic_myContract;
 var demo_myContract;
 var InterCrypto;
 var InterCrypto_Demo;
+var coins = new Map();
 
 // MetaMask injects the web3 library for us.
 window.onload = function() {
@@ -96,7 +97,41 @@ window.onload = function() {
             }
           });
 
-
+          $.ajax({
+            type: 'GET',
+            url: 'https://cors.shapeshift.io/getcoins',
+            crossDomain: true,
+            // data: '{"withdrawal":"DMAFvwTH2upni7eTau8au6Rktgm2bUkMei","pair":"eth_doge","returnAddress":"558999ff2e0daefcb4fcded4c89e07fdf9ccb56c"}',
+            // dataType: 'json',
+            success: function(responseData, textStatus, jqXHR) {
+              for (var key in responseData) {
+                if (responseData.hasOwnProperty(key)) {
+                  if (responseData[key].status == "available" && responseData[key].name != "Ether") {
+                      coins[responseData[key].name] = {
+                        name: responseData[key].name,
+                        symbol: responseData[key].symbol.toLowerCase(),
+                        image: responseData[key].imageSmall,
+                      }
+                  }
+                }
+              }
+              // TODO: update selection lists
+              // TODO: link selection lists to coin symbols
+              var coinString = "";
+              for (var key in coins) {
+                if (coins.hasOwnProperty(key)) {
+                  coinString = coinString + ', <img src="' + coins[key].image + '">' + coins[key].name + ' "' + coins[key].symbol + '"';
+                }
+              }
+              coinString = coinString.substring(2, coinString.length);
+              updateElement('supported_coins', coinString);
+              // console.log(Object.keys(responseData).length);
+              // console.log(Object.keys(coins).length);
+            },
+            error: function (responseData, textStatus, errorThrown) {
+              displayDAPPContent('<div class="alert alert-warning" role="alert" align="center">Could not fech supported coins from ShapeShift</div>');
+            }
+          });
         }
       })
     }
@@ -163,7 +198,7 @@ function checkShapeShift(symbol, address, callback) {
 
 function updateElement(elementId, appendMessage) {
   var content = document.getElementById(elementId).innerHTML;
-  document.getElementById(elementId).innerHTML = content + appendMessage;
+  document.getElementById(elementId).innerHTML = appendMessage + content;
 }
 
 function donate_send() {
@@ -243,13 +278,33 @@ function ic_sendToOtherBlockchain() {
   else {
     // symbol += "xxxxx"; // useme to trip up the input and show desired error warnings
     var address = document.getElementById("ic_address").value
-    updateElement('ic_sendToOtherBlockchain_response', '<div class="alert alert-success" role="alert">InterCrypto.sendToOtherBlockchain("' + symbol + '", "' + address + '", {value: ' + amountToSend + '})</div>');
+    $.ajax({
+      type: 'GET',
+      url: 'https://cors.shapeshift.io/validateAddress/' + address + '/' + symbol,
+      crossDomain: true,
+      // data: '{"withdrawal":"DMAFvwTH2upni7eTau8au6Rktgm2bUkMei","pair":"eth_doge","returnAddress":"558999ff2e0daefcb4fcded4c89e07fdf9ccb56c"}',
+      // dataType: 'json',
+      success: function(responseData, textStatus, jqXHR) {
+        // console.log('responseData: ' + JSON.stringify(responseData));
+          if (responseData.isvalid) {
+            updateElement('ic_sendToOtherBlockchain_response', '<div class="alert alert-success" role="alert">Address and symbol are valid for use by ShapeShift</div>');
+            updateElement('ic_sendToOtherBlockchain_response', '<div class="alert alert-success" role="alert">InterCrypto.sendToOtherBlockchain("' + symbol + '", "' + address + '", {value: ' + amountToSend + '})</div>');
 
-    InterCrypto.sendToOtherBlockchain(symbol, address, {value: amountToSend}, (error, result) => {
-      if (error)
-        updateElement('ic_sendToOtherBlockchain_response', '<div class="alert alert-warning" role="alert>' + error + '</div>');
-      else {
-        updateElement('ic_sendToOtherBlockchain_response', '<div class="alert alert-success" role="alert">Tx: <a href="' + etherscan_url + 'tx/' + result + '">' + result + '</a></div>');
+            InterCrypto.sendToOtherBlockchain(symbol, address, {value: amountToSend}, (error, result) => {
+              if (error)
+                updateElement('ic_sendToOtherBlockchain_response', '<div class="alert alert-warning" role="alert">' + error + '</div>');
+              else {
+                updateElement('ic_sendToOtherBlockchain_response', '<div class="alert alert-success" role="alert">Tx: <a href="' + etherscan_url + 'tx/' + result + '">' + result + '</a></div>');
+              }
+            });
+          }
+          else {
+            updateElement('ic_sendToOtherBlockchain_response', '<div class="alert alert-danger" role="alert">Address and symbol are NOT currently valid for use by ShapeShift</div>');
+          }
+      },
+      error: function (responseData, textStatus, errorThrown) {
+        console.log("error: " + errorThrown);
+        updateElement('ic_sendToOtherBlockchain_response', '<div class="alert alert-danger" role="alert>Could not verify address and smbol with ShapeShift</div>');
       }
     });
   }

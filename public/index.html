@@ -171,20 +171,31 @@
 
         <h1 align="center">About</h1>
         <p>
-          Explain use case of InterCrypto
+          The InterCrypto DAPP provides a decentralized service on the Ethereum blockchain to convert Ether to other crypto-currencies. The InterCrypto DAPP uses the Oracalize DAPP to create a request to ShapeShift to execute this conversion. This page shows a demo Wallet DAPP that exhibits the use case
+          of InterCrypto and also gives direct access to call functions on InterCrypto itself. Connecting to InterCrypto require smart contract coders to import the InterCrypto Interface by including the following line in their solidity smart contract.
+          <br>
+          <div align="center"><i>import "github.com/ugmo04/inter-crypto/contracts/InterCryptoAPI.sol";</i>
+          <br>See an example <a href="https://github.com/ugmo04/inter-crypto/blob/master/contracts/InterCrypto_Demo.sol">here</a></div>
         </p>
         <p>
-          Currently supported blockchains: btc, ltc, ppc, drk, doge, nmc, ftc, blk, nxt, btcd, qrk, rdd, nbt, bts, bitusd, xcp, xmr
+          This website is open-source and runs client-side only. No keys are ever sent to or stored by intercrypto.org. You can check out the website source code for this page on <a href="https://github.com/ugmo04/inter-crypto-app">Github</a> and run it locally if you like.
         </p>
         <p>
-          Explain that the website is run client-side only. No Ethereum keys are ever sent to or stored by the website. Check out source code for this page on <a href="https://github.com/ugmo04/inter-crypto-app">Github</a> and run it locally if you like.
+          <h3 align="center">Currently supported coins</h3>
+          <span id="supported_coins"></span>
         </p>
       </div>
     </header>
 
     <footer>
       <div id="donate" class="container dapp-text" align="center" class="dapp-text">
-        <h2>Donate to the author</h2>
+        <h3>Donate to the author</h3>
+        <p>
+          This DAPP was written by Jack Tanner as part of a project for the Masters in Computer Science project at Imperial College London.
+          <br>
+          <a href="https://www.linkedin.com/in/jack-tanner-57113b38/"><img src="http://blog.investis.com/en/wp-content/uploads/2016/02/Linkedin-logo.png" style="width:56px;height:56px;"></a>
+          <a href="https://github.com/ugmo04"><img src="https://assets-cdn.github.com/images/modules/open_graph/github-mark.png" style="height:40px;"></a>
+        </p>
         <br>
         <input type="text" id="donate_amount" value="1.0"></input>
         Ether
