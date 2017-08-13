@@ -4,14 +4,15 @@ const ens_contractABI = JSON.parse('[{"constant":true,"inputs":[{"name":"node","
 
 // MAKE SURE THAT ABIs are maintainned updated
 const rinkeby_etherscan = 'https://rinkeby.etherscan.io/';
+const ropsten_etherscan = 'https://ropsten.etherscan.io/';
 const mainnet_etherscan = 'https://etherscan.io/';
 const rinkeby_ens_address = '0xe7410170f87102df0055eb195163a03b7f2bff4a';
+const ropsten_ens_address = '0x112234455c3a32fd11230c42e7bccd4a84e02010';
 const mainnet_ens_address = '0x314159265dD8dbb310642f98f50C066173C1259b';
 const rinkeby_ens_node_name = 'jackdomain.test';
 const mainnet_ens_node_name = 'jacksplace.eth';
 const intercrypto_label = 'intercrypto';
 const wallet_label = 'wallet';
-
 var myAddress;
 
 var networkId;
@@ -25,8 +26,6 @@ var etherscan_url;
 var ic_myContract;
 var demo_myContract;
 var ens_myContract;
-var rinkeby_ic_address;
-var rinkeby_demo_address;
 var InterCrypto;
 var InterCrypto_Demo;
 var ens;
@@ -48,6 +47,12 @@ window.onload = function() {
             etherscan_url = mainnet_etherscan;
             ens_address = mainnet_ens_address;
             ens_node_name = mainnet_ens_node_name;
+            break;
+          case '3': // Ropsten
+            document.getElementById('top-messages').innerHTML = '<div class="alert alert-success" role="alert">You are connected to the Ropsten blockchain</div><div class="alert alert-warning" role="alert">If not connected to mainet, then the final function of the InterCrypto DAPP will not work due to the inability to use ShapeShift</div>';
+            etherscan_url = ropsten_etherscan;
+            ens_address = ropsten_ens_address;
+            ens_node_name = rinkeby_ens_node_name;
             break;
           case '4': // Rinkeby
             document.getElementById('top-messages').innerHTML = '<div class="alert alert-success" role="alert">You are connected to the Rinkeby blockchain</div><div class="alert alert-warning" role="alert">If not connected to mainet, then the final function of the InterCrypto DAPP will not work due to the inability to use ShapeShift</div>';
