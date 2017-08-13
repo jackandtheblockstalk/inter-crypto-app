@@ -1,23 +1,35 @@
 const ic_contractABI = JSON.parse('[{"constant":true,"inputs":[],"name":"amountRecoverable","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"myid","type":"bytes32"},{"name":"result","type":"string"}],"name":"__callback","outputs":[],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"transactionID","type":"uint256"}],"name":"cancelTransaction","outputs":[],"payable":false,"type":"function"},{"constant":false,"inputs":[],"name":"kill","outputs":[],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"getInterCryptoPrice","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"constant":false,"inputs":[],"name":"update_oracalize","outputs":[],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"_coinSymbol","type":"string"},{"name":"_toAddress","type":"string"}],"name":"sendToOtherBlockchain","outputs":[{"name":"transactionID","type":"uint256"}],"payable":true,"type":"function"},{"constant":false,"inputs":[],"name":"recover","outputs":[],"payable":false,"type":"function"},{"inputs":[],"payable":false,"type":"constructor"},{"payable":true,"type":"fallback"},{"anonymous":false,"inputs":[{"indexed":false,"name":"transactionID","type":"uint256"}],"name":"TransactionStarted","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"name":"transactionID","type":"uint256"},{"indexed":false,"name":"depositAddress","type":"address"}],"name":"TransactionSentToShapeShift","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"name":"transactionID","type":"uint256"},{"indexed":false,"name":"reason","type":"string"}],"name":"TransactionAborted","type":"event"}]');
-const demo_contractABI = JSON.parse('[{"constant":true,"inputs":[],"name":"intercrypto_GetInterCryptoPrice","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"constant":false,"inputs":[],"name":"withdrawNormal","outputs":[],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"intercrypto_amountRecoverable","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"constant":false,"inputs":[],"name":"kill","outputs":[],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"_coinSymbol","type":"string"},{"name":"_toAddress","type":"string"}],"name":"intercrypto_SendToOtherBlockchain","outputs":[],"payable":true,"type":"function"},{"constant":false,"inputs":[{"name":"newAddress","type":"address"}],"name":"updateInterCrypto","outputs":[],"payable":false,"type":"function"},{"constant":false,"inputs":[],"name":"intercrypto_Recover","outputs":[],"payable":false,"type":"function"},{"inputs":[],"payable":false,"type":"constructor"},{"payable":true,"type":"fallback"},{"anonymous":false,"inputs":[],"name":"Deposit","type":"event"},{"anonymous":false,"inputs":[],"name":"WithdrawalNormal","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"name":"transactionID","type":"uint256"}],"name":"WithdrawalInterCrypto","type":"event"}]');
+const demo_contractABI = JSON.parse('[{"constant":true,"inputs":[],"name":"intercrypto_GetInterCryptoPrice","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"_coinSymbol","type":"string"},{"name":"_toAddress","type":"string"}],"name":"withdrawalInterCrypto","outputs":[],"payable":true,"type":"function"},{"constant":true,"inputs":[],"name":"intercrypto_amountRecoverable","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"constant":false,"inputs":[],"name":"kill","outputs":[],"payable":false,"type":"function"},{"constant":false,"inputs":[],"name":"withdrawalNormal","outputs":[],"payable":false,"type":"function"},{"constant":false,"inputs":[],"name":"deposit","outputs":[],"payable":true,"type":"function"},{"constant":false,"inputs":[{"name":"newAddress","type":"address"}],"name":"updateInterCrypto","outputs":[],"payable":false,"type":"function"},{"constant":false,"inputs":[],"name":"intercrypto_Recover","outputs":[],"payable":false,"type":"function"},{"inputs":[],"payable":false,"type":"constructor"},{"payable":true,"type":"fallback"},{"anonymous":false,"inputs":[],"name":"Deposit","type":"event"},{"anonymous":false,"inputs":[],"name":"WithdrawalNormal","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"name":"transactionID","type":"uint256"}],"name":"WithdrawalInterCrypto","type":"event"}]');
+const ens_contractABI = JSON.parse('[{"constant":true,"inputs":[{"name":"node","type":"bytes32"}],"name":"resolver","outputs":[{"name":"","type":"address"}],"payable":false,"type":"function"},{"constant":true,"inputs":[{"name":"node","type":"bytes32"}],"name":"owner","outputs":[{"name":"","type":"address"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"node","type":"bytes32"},{"name":"label","type":"bytes32"},{"name":"owner","type":"address"}],"name":"setSubnodeOwner","outputs":[],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"node","type":"bytes32"},{"name":"ttl","type":"uint64"}],"name":"setTTL","outputs":[],"payable":false,"type":"function"},{"constant":true,"inputs":[{"name":"node","type":"bytes32"}],"name":"ttl","outputs":[{"name":"","type":"uint64"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"node","type":"bytes32"},{"name":"resolver","type":"address"}],"name":"setResolver","outputs":[],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"node","type":"bytes32"},{"name":"owner","type":"address"}],"name":"setOwner","outputs":[],"payable":false,"type":"function"},{"anonymous":false,"inputs":[{"indexed":true,"name":"node","type":"bytes32"},{"indexed":true,"name":"label","type":"bytes32"},{"indexed":false,"name":"owner","type":"address"}],"name":"NewOwner","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"node","type":"bytes32"},{"indexed":false,"name":"owner","type":"address"}],"name":"Transfer","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"node","type":"bytes32"},{"indexed":false,"name":"resolver","type":"address"}],"name":"NewResolver","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"node","type":"bytes32"},{"indexed":false,"name":"ttl","type":"uint64"}],"name":"NewTTL","type":"event"}]');
 
-const rinkeby_ic_address = '0xb7c4e3c76374253d1bac61a21983258e47facb74';
-const rinkeby_demo_address = '0x2556a618dadeac4b57312d7e1864ca445c307acf';
+// MAKE SURE THAT ABIs are maintainned updated
 const rinkeby_etherscan = 'https://rinkeby.etherscan.io/';
-const mainnet_ic_address = ''; // ADD ME!!!!!!!!!!!!!!!!!!!!!!!!!
-const mainnet_demo_address = ''; // ADD ME!!!!!!!!!!!!!!!!!!!!!!!!!
 const mainnet_etherscan = 'https://etherscan.io/';
+const rinkeby_ens_address = '0xe7410170f87102df0055eb195163a03b7f2bff4a';
+const mainnet_ens_address = '0x314159265dD8dbb310642f98f50C066173C1259b';
+const rinkeby_ens_node_name = 'jackdomain.test';
+const mainnet_ens_node_name = 'jacksplace.eth';
+const intercrypto_label = 'intercrypto';
+const wallet_label = 'wallet';
 
-const myAddress = '0x61b122c456b72aef1fe767ee5b2ac486356e6c45';
+var myAddress;
 
 var networkId;
 var ic_contractAddress;
 var demo_contractAddress;
+var ens_address;
+var ens_node_name;
+var ic_ens_node;
+var demo_ens_node;
 var etherscan_url;
 var ic_myContract;
 var demo_myContract;
+var ens_myContract;
+var rinkeby_ic_address;
+var rinkeby_demo_address;
 var InterCrypto;
 var InterCrypto_Demo;
+var ens;
 var coins = new Map();
 
 // MetaMask injects the web3 library for us.
@@ -31,17 +43,17 @@ window.onload = function() {
         networkId = result;
 
         switch (networkId) {
-          case '1':
+          case '1': // Mainnet
             document.getElementById('top-messages').innerHTML = '<div class="alert alert-success" role="alert">You are connected to mainnet Ethereum blockchain</div>';
-            ic_contractAddress = mainnet_ic_address;
-            demo_contractAddress = mainnet_demo_address;
             etherscan_url = mainnet_etherscan;
+            ens_address = mainnet_ens_address;
+            ens_node_name = mainnet_ens_node_name;
             break;
-          case '4':
+          case '4': // Rinkeby
             document.getElementById('top-messages').innerHTML = '<div class="alert alert-success" role="alert">You are connected to the Rinkeby blockchain</div><div class="alert alert-warning" role="alert">If not connected to mainet, then the final function of the InterCrypto DAPP will not work due to the inability to use ShapeShift</div>';
-            ic_contractAddress = rinkeby_ic_address;
-            demo_contractAddress = rinkeby_demo_address;
             etherscan_url = rinkeby_etherscan;
+            ens_address = rinkeby_ens_address;
+            ens_node_name = rinkeby_ens_node_name;
             break;
           default:
             document.getElementById('top-messages').innerHTML = '<div class="alert alert-warning" role="alert">You are not connected to a supported blockchain</div>';
@@ -49,89 +61,124 @@ window.onload = function() {
             break;
         }
 
+        ic_ens_node = namehash(intercrypto_label + '.' + ens_node_name);
+        demo_ens_node = namehash(wallet_label + '.' + intercrypto_label + '.' + ens_node_name);
+
         if (networkId > 0) {
-          ic_myContract = web3.eth.contract(ic_contractABI);
-          InterCrypto = ic_myContract.at(ic_contractAddress);
+          ens_myContract = web3.eth.contract(ens_contractABI);
+          ens = ens_myContract.at(ens_address);
 
-          demo_myContract = web3.eth.contract(demo_contractABI);
-          InterCrypto_Demo = demo_myContract.at(demo_contractAddress);
+          ens.resolver(namehash(ens_node_name), (error, result) => {
+            if (error) {
+              displayDAPPContent('<div class="alert alert-danger" role="alert" align="center">My address could not be resolved from ENS</div>');
+            }
+            else {
+              myAddress = result;
+            }
+          })
 
-          ic_update();
+          ens.resolver(ic_ens_node, (error, result) => {
+            if (error || result == '0x0000000000000000000000000000000000000000') {
+              displayDAPPContent('<div class="alert alert-danger" role="alert" align="center">InterCrypto address could not be resolved from ENS</div>');
+              console.log('error: ' + error);
+            }
+            else {
+              ic_contractAddress = result;
+              ens.resolver(demo_ens_node, (error, result) => {
+                if (error || result == '0x0000000000000000000000000000000000000000') {
+                  displayDAPPContent('<div class="alert alert-danger" role="alert" align="center">InterCrypto_Wallet address could not be resolved from ENS</div>');
+                  console.log('error: ' + error);
+                }
+                else {
+                  demo_contractAddress = result;
+                  ic_myContract = web3.eth.contract(ic_contractABI);
+                  InterCrypto = ic_myContract.at(ic_contractAddress);
 
-          document.getElementById('ic_etherscan_a').href = etherscan_url + 'address/' + ic_contractAddress;
-          document.getElementById('demo_etherscan_a').href = etherscan_url + 'address/' + demo_contractAddress;
+                  demo_myContract = web3.eth.contract(demo_contractABI);
+                  InterCrypto_Demo = demo_myContract.at(demo_contractAddress);
 
-          // Start watching InterCrypto contract
-          InterCrypto.TransactionStarted((error, result) => {
-            if (!error) {
-              transactionIDresult = result.args.transactionID;
-              updateElement('ic_sendToOtherBlockchain_response', '<div class="alert alert-info" role="alert">TransactionStarted(transactionID: ' + transactionIDresult + ')</div>');
-            }
-          });
-          InterCrypto.TransactionAborted((error, result) => {
-            if (!error) {
-              transactionIDresult = result.args.transactionID;
-              updateElement('ic_sendToOtherBlockchain_response', '<div class="alert alert-danger" role="alert">TransactionAborted(transactionID: ' + transactionIDresult + ', reason: ' + result.args.reason + ')</div>');
-            }
-          });
-          InterCrypto.TransactionSentToShapeShift((error, result) => {
-            if (!error) {
-              transactionIDresult = result.args.transactionID;
-              updateElement('ic_sendToOtherBlockchain_response', '<div class="alert alert-success" role="alert">TransactionSentToShapeShift(transactionID: ' + transactionIDresult + ', depositAddress: <a href="' + etherscan_url + 'address/' + result.args.depositAddress + '">' + result.args.depositAddress + ')</div>');
-            }
-          });
-          InterCrypto_Demo.Deposit( (error, result) => {
-            if (!error) {
-              updateElement('demo_deposit_response', '<div class="alert alert-success" role="alert">Deposit()</div>');
-            }
-          });
-          InterCrypto_Demo.WithdrawalNormal( (error, result) => {
-            if (!error) {
-              updateElement('demo_withdrawal_response', '<div class="alert alert-success" role="alert">WithdrawalNormal()</div>');
-            }
-          });
-          InterCrypto_Demo.WithdrawalInterCrypto( (error, result) => {
-            if (!error) {
-              transactionIDresult = result.args.transactionID;
-              updateElement('demo_withdrawal_response', '<div class="alert alert-success" role="alert">WithdrawalInterCrypto(transactionID: ' + transactionIDresult + ')</div>');
-            }
-          });
+                  ic_update();
 
-          $.ajax({
-            type: 'GET',
-            url: 'https://cors.shapeshift.io/getcoins',
-            crossDomain: true,
-            // data: '{"withdrawal":"DMAFvwTH2upni7eTau8au6Rktgm2bUkMei","pair":"eth_doge","returnAddress":"558999ff2e0daefcb4fcded4c89e07fdf9ccb56c"}',
-            // dataType: 'json',
-            success: function(responseData, textStatus, jqXHR) {
-              for (var key in responseData) {
-                if (responseData.hasOwnProperty(key)) {
-                  if (responseData[key].status == "available" && responseData[key].name != "Ether") {
-                      coins[responseData[key].name] = {
-                        name: responseData[key].name,
-                        symbol: responseData[key].symbol.toLowerCase(),
-                        image: responseData[key].imageSmall,
+                  document.getElementById('ic_etherscan_a').href = etherscan_url + 'address/' + ic_contractAddress;
+                  document.getElementById('demo_etherscan_a').href = etherscan_url + 'address/' + demo_contractAddress;
+
+                  // Start watching InterCrypto contract
+                  InterCrypto.TransactionStarted((error, result) => {
+                    if (!error) {
+                      transactionIDresult = result.args.transactionID;
+                      updateElement('ic_sendToOtherBlockchain_response', '<div class="alert alert-info" role="alert">TransactionStarted(transactionID: ' + transactionIDresult + ')</div>');
+                    }
+                  });
+                  InterCrypto.TransactionAborted((error, result) => {
+                    if (!error) {
+                      transactionIDresult = result.args.transactionID;
+                      updateElement('ic_sendToOtherBlockchain_response', '<div class="alert alert-danger" role="alert">TransactionAborted(transactionID: ' + transactionIDresult + ', reason: ' + result.args.reason + ')</div>');
+                    }
+                  });
+                  InterCrypto.TransactionSentToShapeShift((error, result) => {
+                    if (!error) {
+                      transactionIDresult = result.args.transactionID;
+                      updateElement('ic_sendToOtherBlockchain_response', '<div class="alert alert-success" role="alert">TransactionSentToShapeShift(transactionID: ' + transactionIDresult + ', depositAddress: <a href="' + etherscan_url + 'address/' + result.args.depositAddress + '">' + result.args.depositAddress + ')</div>');
+                    }
+                  });
+                  InterCrypto_Demo.Deposit( (error, result) => {
+                    if (!error) {
+                      updateElement('demo_deposit_response', '<div class="alert alert-success" role="alert">Deposit()</div>');
+                    }
+                  });
+                  InterCrypto_Demo.WithdrawalNormal( (error, result) => {
+                    if (!error) {
+                      updateElement('demo_withdrawal_response', '<div class="alert alert-success" role="alert">WithdrawalNormal()</div>');
+                    }
+                  });
+                  InterCrypto_Demo.WithdrawalInterCrypto( (error, result) => {
+                    if (!error) {
+                      transactionIDresult = result.args.transactionID;
+                      updateElement('demo_withdrawal_response', '<div class="alert alert-success" role="alert">WithdrawalInterCrypto(transactionID: ' + transactionIDresult + ')</div>');
+                    }
+                  });
+
+                  $.ajax({
+                    type: 'GET',
+                    url: 'https://cors.shapeshift.io/getcoins',
+                    crossDomain: true,
+                    // data: '{"withdrawal":"DMAFvwTH2upni7eTau8au6Rktgm2bUkMei","pair":"eth_doge","returnAddress":"558999ff2e0daefcb4fcded4c89e07fdf9ccb56c"}',
+                    // dataType: 'json',
+                    success: function(responseData, textStatus, jqXHR) {
+                      for (var key in responseData) {
+                        if (responseData.hasOwnProperty(key)) {
+                          if (responseData[key].status == "available" && responseData[key].name != "Ether") {
+                              coins[responseData[key].name] = {
+                                name: responseData[key].name,
+                                symbol: responseData[key].symbol.toLowerCase(),
+                                image: responseData[key].imageSmall,
+                              }
+                          }
+                        }
                       }
-                  }
+                      // TODO: update selection lists
+                      // TODO: link selection lists to coin symbols
+                      var coinString = "";
+                      for (var key in coins) {
+                        if (coins.hasOwnProperty(key)) {
+                          coinString = coinString + ', <img src="' + coins[key].image + '">' + coins[key].name + ' "' + coins[key].symbol + '"';
+                        }
+                      }
+                      coinString = coinString.substring(2, coinString.length);
+                      updateElement('supported_coins', coinString);
+                      // console.log(Object.keys(responseData).length);
+                      // console.log(Object.keys(coins).length);
+                    },
+                    error: function (responseData, textStatus, errorThrown) {
+                      displayDAPPContent('<div class="alert alert-warning" role="alert" align="center">Could not fech supported coins from ShapeShift</div>');
+                    }
+                  });
                 }
-              }
-              // TODO: update selection lists
-              // TODO: link selection lists to coin symbols
-              var coinString = "";
-              for (var key in coins) {
-                if (coins.hasOwnProperty(key)) {
-                  coinString = coinString + ', <img src="' + coins[key].image + '">' + coins[key].name + ' "' + coins[key].symbol + '"';
-                }
-              }
-              coinString = coinString.substring(2, coinString.length);
-              updateElement('supported_coins', coinString);
-              // console.log(Object.keys(responseData).length);
-              // console.log(Object.keys(coins).length);
-            },
-            error: function (responseData, textStatus, errorThrown) {
-              displayDAPPContent('<div class="alert alert-warning" role="alert" align="center">Could not fech supported coins from ShapeShift</div>');
+              })
             }
-          });
+          })
+
+
         }
       })
     }
@@ -140,6 +187,18 @@ window.onload = function() {
     }
 
   }
+}
+
+// Copied from https://github.com/ethereum/ens/blob/master/ensutils.js
+function namehash(name) {
+    var node = '0x0000000000000000000000000000000000000000000000000000000000000000';
+    if (name !== '') {
+        var labels = name.split(".");
+        for(var i = labels.length - 1; i >= 0; i--) {
+            node = web3.sha3(node + web3.sha3(labels[i]).slice(2), {encoding: 'hex'});
+        }
+    }
+    return node.toString();
 }
 
 function getICSymbol(ic_symbol) {
@@ -174,26 +233,6 @@ function getICAddress(ic_symbol) {
     default:
       return 0;
   }
-}
-
-function checkShapeShift(symbol, address, callback) {
-  // console.log('{"withdrawal":"' + address + '","pair":"eth_' + symbol + '","returnAddress":"558999ff2e0daefcb4fcded4c89e07fdf9ccb56c"}');
-  // open CORS configuration so that cors.shapeshift.io can send post response message to me
-  $.ajax({
-    type: 'POST',
-    url: 'https://cors.shapeshift.io/shift',
-    crossDomain: true,
-    data: '{"withdrawal":"' + address + '","pair":"eth_' + symbol + '","returnAddress":"558999ff2e0daefcb4fcded4c89e07fdf9ccb56c"}',
-    dataType: 'json',
-    success: function(responseData, textStatus, jqXHR) {
-      console.log("success");
-      callback(null, responseData);
-    },
-    error: function (responseData, textStatus, errorThrown) {
-      console.log("error");
-      callback("error in POST request", null);
-    }
-  });
 }
 
 function updateElement(elementId, appendMessage) {
@@ -253,8 +292,6 @@ function ic_getShapeShiftMarket(callback) {
       type: 'GET',
       url: 'https://cors.shapeshift.io/marketinfo/eth_' + symbol,
       crossDomain: true,
-      // data: '{"some":"json"}',
-      // dataType: 'json',
       success: function(responseData, textStatus, jqXHR) {
           document.getElementById('ic_shapeshift_minimum').innerHTML = '+' + responseData.minimum.toFixed(6);
           callback(null, responseData.minimum);
@@ -285,7 +322,6 @@ function ic_sendToOtherBlockchain() {
       // data: '{"withdrawal":"DMAFvwTH2upni7eTau8au6Rktgm2bUkMei","pair":"eth_doge","returnAddress":"558999ff2e0daefcb4fcded4c89e07fdf9ccb56c"}',
       // dataType: 'json',
       success: function(responseData, textStatus, jqXHR) {
-        // console.log('responseData: ' + JSON.stringify(responseData));
           if (responseData.isvalid) {
             updateElement('ic_sendToOtherBlockchain_response', '<div class="alert alert-success" role="alert">Address and symbol are valid for use by ShapeShift</div>');
             updateElement('ic_sendToOtherBlockchain_response', '<div class="alert alert-success" role="alert">InterCrypto.sendToOtherBlockchain("' + symbol + '", "' + address + '", {value: ' + amountToSend + '})</div>');
@@ -317,9 +353,8 @@ function demo_update() {
 }
 
 function demo_deposit() {
-  web3.eth.sendTransaction({
+  InterCrypto_Demo.deposit({
     from: web3.eth.coinbase,
-    to: demo_contractAddress,
     value: web3.toWei(document.getElementById("demo_amount").value, 'ether')
   }, function(error, result) {
     if (!error) {
@@ -340,12 +375,33 @@ function demo_withdrawal() {
     var address = document.getElementById("demo_address").value;
 
     // TODO: check that address and symbol are valid
-    InterCrypto_Demo.intercrypto_SendToOtherBlockchain(symbol, address, {from: web3.eth.coinbase}, (error, result) => {
-      if (error)
-        updateElement('demo_withdrawal_response', '<div class="alert alert-warning" role="alert>' + error + '</div>');
-      else {
-        updateElement('demo_withdrawal_response', '<div class="alert alert-success" role="alert">Tx: <a href="' + etherscan_url + 'tx/' + result + '">' + result + '</a></div>');
+    $.ajax({
+      type: 'GET',
+      url: 'https://cors.shapeshift.io/validateAddress/' + address + '/' + symbol,
+      crossDomain: true,
+      // data: '{"withdrawal":"DMAFvwTH2upni7eTau8au6Rktgm2bUkMei","pair":"eth_doge","returnAddress":"558999ff2e0daefcb4fcded4c89e07fdf9ccb56c"}',
+      // dataType: 'json',
+      success: function(responseData, textStatus, jqXHR) {
+          if (responseData.isvalid) {
+            updateElement('demo_withdrawal_response', '<div class="alert alert-success" role="alert">Address and symbol are valid for use by ShapeShift</div>');
+
+            InterCrypto_Demo.withdrawalInterCrypto(symbol, address, {from: web3.eth.coinbase}, (error, result) => {
+              if (error)
+                updateElement('demo_withdrawal_response', '<div class="alert alert-warning" role="alert>' + error + '</div>');
+              else {
+                updateElement('demo_withdrawal_response', '<div class="alert alert-success" role="alert">Tx: <a href="' + etherscan_url + 'tx/' + result + '">' + result + '</a></div>');
+              }
+            });
+          }
+          else {
+            updateElement('demo_withdrawal_response', '<div class="alert alert-danger" role="alert">Address and symbol are NOT currently valid for use by ShapeShift</div>');
+          }
+      },
+      error: function (responseData, textStatus, errorThrown) {
+        console.log("error: " + errorThrown);
+        updateElement('ic_sendToOtherBlockchain_response', '<div class="alert alert-danger" role="alert>Could not verify address and smbol with ShapeShift</div>');
       }
     });
+
   }
 }
