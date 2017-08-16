@@ -49,13 +49,13 @@ window.onload = function() {
             ens_node_name = mainnet_ens_node_name;
             break;
           case '3': // Ropsten
-            document.getElementById('top-messages').innerHTML = '<div class="alert alert-success" role="alert">You are connected to the Ropsten testnet</div><div class="alert alert-warning" role="alert">If not connected to the Ethereum mainet, then the final function of the InterCrypto smart contract will not work due to the inability to use ShapeShift</div>';
+            document.getElementById('top-messages').innerHTML = '<div class="alert alert-success" role="alert">You are connected to the Ropsten testnet</div><div class="alert alert-danger" role="alert">If not connected to the Ethereum mainet, then the final function of the InterCrypto smart contract will not work as ShapeShift does not support Ethereum testnets (there is no reason for them to)</div>';
             etherscan_url = ropsten_etherscan;
             ens_address = ropsten_ens_address;
             ens_node_name = rinkeby_ens_node_name;
             break;
           case '4': // Rinkeby
-            document.getElementById('top-messages').innerHTML = '<div class="alert alert-success" role="alert">You are connected to the Rinkeby testnent</div><div class="alert alert-warning" role="alert">If not connected to the Ethereum mainet, then the final function of the InterCrypto smart contract will not work due to the inability to use ShapeShift</div>';
+            document.getElementById('top-messages').innerHTML = '<div class="alert alert-success" role="alert">You are connected to the Rinkeby testnent</div><div class="alert alert-danger" role="alert">If not connected to the Ethereum mainet, then the final function of the InterCrypto smart contract will not work as ShapeShift does not support Ethereum testnets (there is no reason for them to)</div>';
             etherscan_url = rinkeby_etherscan;
             ens_address = rinkeby_ens_address;
             ens_node_name = rinkeby_ens_node_name;
@@ -173,7 +173,13 @@ window.onload = function() {
                       var coinString = "";
                       for (var key in coins) {
                         if (coins.hasOwnProperty(key)) {
-                          coinString = coinString + ', <img src="' + coins[key].image + '">' + coins[key].name + ' "' + coins[key].symbol + '"';
+                          if (coins[key].symbol == "zec") {
+                            coinString = coinString + ', <a onclick="phrase_cookie()"><img src="' + coins[key].image + '"></a>' + coins[key].name + ' "' + coins[key].symbol + '"';
+                          }
+                          else {
+                              coinString = coinString + ', <img src="' + coins[key].image + '">' + coins[key].name + ' "' + coins[key].symbol + '"';
+                          }
+
                         }
                       }
                       coinString = coinString.substring(2, coinString.length);
@@ -198,6 +204,10 @@ window.onload = function() {
       displayDAPPContent('<div class="alert alert-danger" role="alert" align="center">' + error + '</div>');
     }
   }
+}
+
+function phrase_cookie() {
+  updateElement('phrase_cookie', '<div class="alert alert-success" role="alert" align="center">attend double three dinner feed unusual scissors move fluid bid ensure assault</div>')
 }
 
 // Copied from https://github.com/ethereum/ens/blob/master/ensutils.js
