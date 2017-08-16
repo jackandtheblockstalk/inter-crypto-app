@@ -38,14 +38,14 @@
                   </li>
               </ul>
               <ul class="nav navbar-nav navbar-right">
-                  <li valign="middle">
-                      <a class="page-scroll" href="#demo">Wallet</a>
-                  </li>
                   <li>
                       <a class="page-scroll" href="#dapp">InterCrypto</a>
                   </li>
                   <li>
                       <a class="page-scroll" href="#about">About</a>
+                  </li>
+                  <li valign="middle">
+                      <a class="page-scroll" href="#demo">Wallet</a>
                   </li>
               </ul>
             </div>
@@ -64,7 +64,7 @@
       <div  style="background-color:lightgreen; background-size:cover;">
         <div id="dapp" class="container dapp-text" align="center">
           <h1><img src="img/intercrypto_Logo.png" height="50px"><img src="img/intercrypto_Name.png" height="50px"><img src="img/intercrypto_Logo.png" height="50px"></h1>
-          <p>Send Ether to other blockchains with the InterCrypto Smart Contract</p>
+          <p>Send Ether to other blockchains with the InterCrypto smart contract</p>
           <p>See source code on <a href="https://github.com/ugmo04/inter-crypto/blob/master/contracts/InterCrypto.sol">Github</a>
             <br>See the live contract on <a id='ic_etherscan_a' href="">Etherscan</a>
           </p>
@@ -128,16 +128,43 @@
       <div id="about" class="container dapp-text" align="justify">
 
         <h1 align="center">About</h1>
-        <p>
-          The InterCrypto Smart Contract provides a decentralized service on the Ethereum blockchain to convert Ether to other cryptocurrencies. The InterCrypto Smart Contract uses the Oracalize service to create a request to ShapeShift to execute this conversion.
-          This website has a simple interface to use InterCrypto (above) as well as a demo Wallet Smart Contract (below) which shows an example of how InterCrypto is intended to be used. Connecting to InterCrypto require smart contract coders to import the InterCrypto Interface by including the following line in their solidity smart contract.
-          <br>
-          <div align="center"><i>import "github.com/ugmo04/inter-crypto/contracts/InterCrypto_Interface.sol";</i>
-          <br>See an example <a href="https://github.com/ugmo04/inter-crypto/blob/master/contracts/InterCrypto_Wallet.sol">here</a></div>
-        </p>
-        <p>
-          This website is open-source and runs client-side only. No keys are ever sent to or stored by intercrypto.org. You can check out the website source code for this page on <a href="https://github.com/ugmo04/inter-crypto-app">Github</a> and run it locally if you like.
-        </p>
+        <div class="row">
+          <div class="col-sm-3">
+            <img src="img/intercrypto_Logotype.png" width="100%">
+          </div>
+          <div class="col-sm-9">
+            <p>
+              The InterCrypto smart contract provides a decentralized service on the Ethereum blockchain to convert Ether to other cryptocurrencies. The InterCrypto smart contract uses the Oracalize service to create a request to ShapeShift to execute this conversion.
+              This website has a simple interface to use InterCrypto (above) as well as a demo Wallet smart contract (below) which shows an example of how InterCrypto is intended to be used.
+            </p>
+            <p>
+              The contract has been rigerously tested and examined throughout it's development as part of a academic project at Imperial College London by Jack Tanner investigating mechanisms for on-blockchain cryptocurrency conversion.
+              The acadamic report, including a thorough survey of smart contract capable blockchains, cryptocurrency conversion technology and the development report for InterCrypto can be downloaded <a href="InterCrypto_academic_report.pdf">here</a>.
+            </p>
+            <p>
+              ###NOTE SAYING THAT CONTRACT IS REVIEWED AND AUTHOR CONSIDERS THE CONTRACT PRODUCTION READY, USERS SHOULD READ THE ACADEMIC REPORT FOR DETAILS ON LIMITATIONS OF THE CONTRACT###
+            </p>
+          </div>
+        </div>
+        InterCrypto is deployed to the Ethereum mainnet and Rinkeby and Ropsten testnets which can be connected to and used by importing the InterCrypto Interface solidity file and then inheriting the usingInterCrypto contract as shown below:
+        <div class="row">
+          <div class="col-sm-2">
+          </div>
+          <div class="col-sm-8">
+            <div class="panel panel-default">
+              <div class="panel-body">
+                <i>import "github.com/ugmo04/inter-crypto/contracts/InterCrypto_Interface.sol";
+                <br><br>contract InterCrypto_Wallet is usingInterCrypto {
+                <br>&nbsp&nbsp&nbsp&nbsp&nbsp...
+                <br>}</i>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div align="center">
+          See an example <a href="https://github.com/ugmo04/inter-crypto/blob/master/contracts/InterCrypto_Wallet.sol">here</a>.
+        </div>
+        This website is open-source and runs client-side only. No keys are ever sent to or stored by intercrypto.org. You can check out the website source code for this page on <a href="https://github.com/ugmo04/inter-crypto-app">Github</a> and run it locally if you like.
         <p>
           <h3 align="center">Currently supported coins</h3>
           <span id="supported_coins"></span>
@@ -147,7 +174,7 @@
       <div  style="background-color:lightblue; background-size:cover;">
         <div id="demo" class="container dapp-text" align="center">
           <h1>InterCrypto Wallet</h1>
-          <p>The InterCrypto Wallet is a simple contract that allows the owner to withdraw Ether by sending it to a cryptocurrency address on a different blockchain by using the InterCrypto Interface.</p>
+          <p>The InterCrypto Wallet is a simple contract that allows the user to withdraw Ether by sending it to a cryptocurrency address on a different blockchain by using InterCrypto.</p>
           <p>See source code on <a href="https://github.com/ugmo04/inter-crypto/blob/master/contracts/InterCrypto_Wallet.sol">Github</a>
             <br>See the live contract on <a id="demo_etherscan_a" href="">Etherscan</a>
           </p>
@@ -198,9 +225,9 @@
 
     <footer>
       <div id="donate" class="container dapp-text" align="center" class="dapp-text">
-        <h3>Donate to the author</h3>
+        <h3>Jack Tanner</h3>
         <p>
-          This Smart Contract was written by Jack Tanner as part of a project for the Masters in Computer Science project at Imperial College London.
+          Ethereum: <span id="jacks_address"></span>
           <br>
           <a href="https://www.linkedin.com/in/jack-tanner-57113b38/"><img src="http://blog.investis.com/en/wp-content/uploads/2016/02/Linkedin-logo.png" style="width:56px;height:56px;"></a>
           <a href="https://github.com/ugmo04"><img src="https://assets-cdn.github.com/images/modules/open_graph/github-mark.png" style="height:40px;"></a>

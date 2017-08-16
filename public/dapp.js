@@ -13,7 +13,7 @@ const rinkeby_ens_node_name = 'jackdomain.test';
 const mainnet_ens_node_name = 'jacksplace.eth';
 const intercrypto_label = 'intercrypto';
 const wallet_label = 'wallet';
-var myAddress;
+var jacksAddress;
 
 var networkId;
 var ic_contractAddress;
@@ -49,13 +49,13 @@ window.onload = function() {
             ens_node_name = mainnet_ens_node_name;
             break;
           case '3': // Ropsten
-            document.getElementById('top-messages').innerHTML = '<div class="alert alert-success" role="alert">You are connected to the Ropsten testnet</div><div class="alert alert-warning" role="alert">If not connected to the Ethereum mainet, then the final function of the InterCrypto Smart Contract will not work due to the inability to use ShapeShift</div>';
+            document.getElementById('top-messages').innerHTML = '<div class="alert alert-success" role="alert">You are connected to the Ropsten testnet</div><div class="alert alert-warning" role="alert">If not connected to the Ethereum mainet, then the final function of the InterCrypto smart contract will not work due to the inability to use ShapeShift</div>';
             etherscan_url = ropsten_etherscan;
             ens_address = ropsten_ens_address;
             ens_node_name = rinkeby_ens_node_name;
             break;
           case '4': // Rinkeby
-            document.getElementById('top-messages').innerHTML = '<div class="alert alert-success" role="alert">You are connected to the Rinkeby testnent</div><div class="alert alert-warning" role="alert">If not connected to the Ethereum mainet, then the final function of the InterCrypto Smart Contract will not work due to the inability to use ShapeShift</div>';
+            document.getElementById('top-messages').innerHTML = '<div class="alert alert-success" role="alert">You are connected to the Rinkeby testnent</div><div class="alert alert-warning" role="alert">If not connected to the Ethereum mainet, then the final function of the InterCrypto smart contract will not work due to the inability to use ShapeShift</div>';
             etherscan_url = rinkeby_etherscan;
             ens_address = rinkeby_ens_address;
             ens_node_name = rinkeby_ens_node_name;
@@ -78,7 +78,8 @@ window.onload = function() {
               displayDAPPContent('<div class="alert alert-danger" role="alert" align="center">My address could not be resolved from ENS</div>');
             }
             else {
-              myAddress = result;
+              jacksAddress = result;
+              updateElement('jacks_address', jacksAddress + '<br>ENS: "' + ens_node_name + '"');
             }
           })
 
@@ -196,7 +197,6 @@ window.onload = function() {
     catch(error) {
       displayDAPPContent('<div class="alert alert-danger" role="alert" align="center">' + error + '</div>');
     }
-
   }
 }
 
@@ -254,7 +254,7 @@ function updateElement(elementId, appendMessage) {
 function donate_send() {
   web3.eth.sendTransaction({
     from: web3.eth.coinbase,
-    to: myAddress,
+    to: jacksAddress,
     value: web3.toWei(document.getElementById("donate_amount").value, 'ether')
   }, function(error, result) {
     if (!error) {
@@ -385,16 +385,16 @@ function demo_withdrawal() {
     // symbol += "xxxxx"; // useme to trip up the input and show desired error warnings
     var address = document.getElementById("demo_address").value;
 
-    // TODO: check that address and symbol are valid
-    $.ajax({
-      type: 'GET',
-      url: 'https://cors.shapeshift.io/validateAddress/' + address + '/' + symbol,
-      crossDomain: true,
-      // data: '{"withdrawal":"DMAFvwTH2upni7eTau8au6Rktgm2bUkMei","pair":"eth_doge","returnAddress":"558999ff2e0daefcb4fcded4c89e07fdf9ccb56c"}',
-      // dataType: 'json',
-      success: function(responseData, textStatus, jqXHR) {
-          if (responseData.isvalid) {
-            updateElement('demo_withdrawal_response', '<div class="alert alert-success" role="alert">Address and symbol are valid for use by ShapeShift</div>');
+    updateElement('demo_withdrawal_response', '<div class="alert alert-warning" role="alert">Address and symbol are not validated, this is so that the recovery features of InterCrypto can be exhibited. Please use the InterCrypto smart contract interface above which will validate addresses before submitting a transaction</div>');
+    // $.ajax({
+    //   type: 'GET',
+    //   url: 'https://cors.shapeshift.io/validateAddress/' + address + '/' + symbol,
+    //   crossDomain: true,
+    //   // data: '{"withdrawal":"DMAFvwTH2upni7eTau8au6Rktgm2bUkMei","pair":"eth_doge","returnAddress":"558999ff2e0daefcb4fcded4c89e07fdf9ccb56c"}',
+    //   // dataType: 'json',
+    //   success: function(responseData, textStatus, jqXHR) {
+    //       if (responseData.isvalid) {
+    //         updateElement('demo_withdrawal_response', '<div class="alert alert-success" role="alert">Address and symbol are valid for use by ShapeShift</div>');
 
             InterCrypto_Demo.withdrawalInterCrypto(symbol, address, {from: web3.eth.coinbase}, (error, result) => {
               if (error)
@@ -403,16 +403,16 @@ function demo_withdrawal() {
                 updateElement('demo_withdrawal_response', '<div class="alert alert-success" role="alert">Tx: <a href="' + etherscan_url + 'tx/' + result + '">' + result + '</a></div>');
               }
             });
-          }
-          else {
-            updateElement('demo_withdrawal_response', '<div class="alert alert-danger" role="alert">Address and symbol are NOT currently valid for use by ShapeShift</div>');
-          }
-      },
-      error: function (responseData, textStatus, errorThrown) {
-        console.log("error: " + errorThrown);
-        updateElement('ic_sendToOtherBlockchain_response', '<div class="alert alert-danger" role="alert>Could not verify address and smbol with ShapeShift</div>');
-      }
-    });
+    //       }
+    //       else {
+    //         updateElement('demo_withdrawal_response', '<div class="alert alert-danger" role="alert">Address and symbol are NOT currently valid for use by ShapeShift</div>');
+    //       }
+    //   },
+    //   error: function (responseData, textStatus, errorThrown) {
+    //     console.log("error: " + errorThrown);
+    //     updateElement('ic_sendToOtherBlockchain_response', '<div class="alert alert-danger" role="alert>Could not verify address and smbol with ShapeShift</div>');
+    //   }
+    // });
 
   }
 }
