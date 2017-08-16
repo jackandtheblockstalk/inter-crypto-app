@@ -34,7 +34,7 @@ var coins = new Map();
 // MetaMask injects the web3 library for us.
 window.onload = function() {
   if (typeof web3 === 'undefined') {
-    displayDAPPContent('<div class="alert alert-warning" role="alert" align="center">You need <a href="https://metamask.io/">MetaMask</a> browser plugin to run this DAPP</div>');
+    displayDAPPContent('<div class="alert alert-warning" role="alert" align="center">You need <a href="https://metamask.io/">MetaMask</a> browser plugin to run this Smart Contract</div>');
   }
   else {
     try {
@@ -43,19 +43,19 @@ window.onload = function() {
 
         switch (networkId) {
           case '1': // Mainnet
-            document.getElementById('top-messages').innerHTML = '<div class="alert alert-success" role="alert">You are connected to mainnet Ethereum blockchain</div>';
+            document.getElementById('top-messages').innerHTML = '<div class="alert alert-success" role="alert">You are connected to the Ethereum blockchain</div>';
             etherscan_url = mainnet_etherscan;
             ens_address = mainnet_ens_address;
             ens_node_name = mainnet_ens_node_name;
             break;
           case '3': // Ropsten
-            document.getElementById('top-messages').innerHTML = '<div class="alert alert-success" role="alert">You are connected to the Ropsten blockchain</div><div class="alert alert-warning" role="alert">If not connected to mainet, then the final function of the InterCrypto DAPP will not work due to the inability to use ShapeShift</div>';
+            document.getElementById('top-messages').innerHTML = '<div class="alert alert-success" role="alert">You are connected to the Ropsten testnet</div><div class="alert alert-warning" role="alert">If not connected to the Ethereum mainet, then the final function of the InterCrypto Smart Contract will not work due to the inability to use ShapeShift</div>';
             etherscan_url = ropsten_etherscan;
             ens_address = ropsten_ens_address;
             ens_node_name = rinkeby_ens_node_name;
             break;
           case '4': // Rinkeby
-            document.getElementById('top-messages').innerHTML = '<div class="alert alert-success" role="alert">You are connected to the Rinkeby blockchain</div><div class="alert alert-warning" role="alert">If not connected to mainet, then the final function of the InterCrypto DAPP will not work due to the inability to use ShapeShift</div>';
+            document.getElementById('top-messages').innerHTML = '<div class="alert alert-success" role="alert">You are connected to the Rinkeby testnent</div><div class="alert alert-warning" role="alert">If not connected to the Ethereum mainet, then the final function of the InterCrypto Smart Contract will not work due to the inability to use ShapeShift</div>';
             etherscan_url = rinkeby_etherscan;
             ens_address = rinkeby_ens_address;
             ens_node_name = rinkeby_ens_node_name;

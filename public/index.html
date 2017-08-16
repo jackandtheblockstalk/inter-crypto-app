@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>InterCrypto DAPP</title>
+    <title>InterCrypto Smart Contrat</title>
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
@@ -16,7 +16,7 @@
     <link rel="stylesheet" href="lib/bootstrap-select-1.12.4-dist/css/bootstrap-select.min.css">
     <script src="lib/bootstrap-select-1.12.4-dist/js/bootstrap-select.min.js"></script>
 
-    <!-- Library of DAPP functions -->
+    <!-- Library of Smart Contract functions -->
     <script src="dapp.js"></script>
     <link href="styles.css" rel="stylesheet">
 
@@ -25,22 +25,29 @@
     <!-- Top menu -->
     <nav id="mainNav" class="navbar navbar-default navbar-fixed-top">
         <div class="container">
-            <div class="navbar-header">
-                <a class="navbar-brand page-scroll" href="#page-top">InterCrypo</a>
-            </div>
+            <!-- <div class="navbar-header">
+              <a class="navbar-brand page-scroll" href="#page-top"><img src="img/intercrypto_Logo.png" height="30px"><img src="img/intercrypto_Name.png" height="30px"></a>
+              <a class="navbar-brand page-collapse" href="#page-top"><img src="img/intercrypto_Logo.png" height="30px"><img src="img/intercrypto_Name.png" height="30px"></a>
+
+            </div> -->
 
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav navbar-right">
-                    <li>
-                        <a class="page-scroll" href="#demo">Wallet</a>
-                    </li>
-                    <li>
-                        <a class="page-scroll" href="#dapp">InterCrypto</a>
-                    </li>
-                    <li>
-                        <a class="page-scroll" href="#about">About</a>
-                    </li>
-                </ul>
+              <ul class="nav navbar-nav navbar-left">
+                  <li>
+                    <a class="page-scroll" href="#page-top"><img src="img/intercrypto_Logo.png" height="50px"><img src="img/intercrypto_Name.png" height="30px"></a>
+                  </li>
+              </ul>
+              <ul class="nav navbar-nav navbar-right">
+                  <li valign="middle">
+                      <a class="page-scroll" href="#demo">Wallet</a>
+                  </li>
+                  <li>
+                      <a class="page-scroll" href="#dapp">InterCrypto</a>
+                  </li>
+                  <li>
+                      <a class="page-scroll" href="#about">About</a>
+                  </li>
+              </ul>
             </div>
         </div>
     </nav>
@@ -53,117 +60,68 @@
         </div>
       </div>
 
-      <!-- Demo DAPP -->
-      <div id="demo" class="container dapp-text" align="center" style="background-color:lightblue">
-        <h1>InterCrypto Wallet</h1>
-        <p>The InterCrypto Wallet is a simple contract that allows the owner to withdraw Ether by sending it to a crypto-currency address on a different blockchain by using the InterCrypto Interface.</p>
-        <p>See source code on <a href="https://github.com/ugmo04/inter-crypto/blob/master/contracts/InterCrypto_Wallet.sol">Github</a>
-          <br>See the live contract on <a id="demo_etherscan_a" href="">Etherscan</a>
-        </p>
-        <div id="demo-dapp" align="letf">
-          <div class="row">
-            <div class="col-sm-2">Deposit to wallet</div>
-            <div class="col-sm-4">
-              <input type="text" id="demo_amount" value="0.1"></input>
-              Ether
-            </div>
-          </div>
-          <div align="center">
-            <button type="button" class="btn btn-lg btn-primary" onclick="demo_deposit()">Deposit</button>
-            <br>
-            <div id="demo_deposit_response"></div>
-          </div>
+      <!-- InterCrypto Smart Contract -->
+      <div  style="background-color:lightgreen; background-size:cover;">
+        <div id="dapp" class="container dapp-text" align="center">
+          <h1><img src="img/intercrypto_Logo.png" height="50px"><img src="img/intercrypto_Name.png" height="50px"><img src="img/intercrypto_Logo.png" height="50px"></h1>
+          <p>Send Ether to other blockchains with the InterCrypto Smart Contract</p>
+          <p>See source code on <a href="https://github.com/ugmo04/inter-crypto/blob/master/contracts/InterCrypto.sol">Github</a>
+            <br>See the live contract on <a id='ic_etherscan_a' href="">Etherscan</a>
+          </p>
+          <div id="intercrypto-dapp" align="left">
+            <div class="row">
+              <div class="col-sm-2">Send Ether to</div>
+              <div class="col-sm-4">
+                <select class="selectpicker" id="ic_symbol" onchange='ic_update()'>
+                  <option>Bitcoin</option>
+                  <option selected="selected">Litecoin</option>
+                  <option>Dash</option>
+                  <option>ZCash</option>
+                  <option>Dogecoin</option>
+                </select>
 
-          <div class="row" align="left">
-            <div class="col-sm-2">Withdraw to</div>
-            <div class="col-sm-4">
-              <select class="selectpicker" id="demo_symbol"  onchange='demo_update()'>
-                <option>Bitcoin</option>
-                <option selected="selected">Litecoin</option>
-                <option>Dash</option>
-                <option>ZCash</option>
-                <option>Dogecoin</option>
-              </select>
+              </div>
             </div>
-          </div>
-          <div class="row" align="left">
-            <div class="col-sm-2">Address</div>
-            <div class="col-sm-8">
-              <input type="text" id="demo_address" value="LbZcDdMeP96ko85H21TQii98YFF9RgZg3D"></input>
-              on the <span id="demo_blockchain">Litecoin</span> blockchain
-            </div>
-          </div>
-          <div align="center">
-            <button type="button" class="btn btn-lg btn-primary" onclick="demo_withdrawal()">Withdrawal</button>
-            <br>
-            <div id="demo_withdrawal_response"></div>
-          </div>
+            <div class="row">
+              <div class="col-sm-2">Minimum Ether:</div>
+              <div class="col-sm-8">
+                <div class="row">
+                  <div id="ic_oracalize_cost" class="col-sm-2"></div>
+                  <div class="col-sm-4">Oracalize cost</div>
+                </div>
+                <div class="row">
+                  <div id="ic_shapeshift_minimum" class="col-sm-2"></div>
+                  <div class="col-sm-4">ShapeShift minimum</div>
+                </div>
+                <div class="row">
+                  <div id="ic_minimum_cost" class="col-sm-2"></div>
+                  <div class="col-sm-4">Ether</div>
+                </div>
 
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-2">Send</div>
+              <div class="col-sm-4">
+                <input type="text" id="ic_amount" value="0.01"></input>
+                Ether
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-2">To address</div>
+              <div class="col-sm-8">
+                <input type="text" id="ic_address" value="LbZcDdMeP96ko85H21TQii98YFF9RgZg3D"></input>
+                on the <span id="ic_blockchain">Litecoin</span> blockchain
+              </div>
+            </div>
+            <div align="center">
+              <button type="button" class="btn btn-lg btn-primary" onclick="ic_sendToOtherBlockchain()">Send</button>
+              <br>
+              <div id="ic_sendToOtherBlockchain_response"></div>
+            </div>
+          </div>
+          <br>
         </div>
-        <br>
-      </div>
-      <br>
-
-      <!-- InterCrypto DAPP -->
-      <div id="dapp" class="container dapp-text" align="center" style="background-color:lightgreen">
-        <h1>InterCrypto DAPP</h1>
-        <p>Send Ether to other blockchains with the InterCrypto DAPP</p>
-        <p>See source code on <a href="https://github.com/ugmo04/inter-crypto/blob/master/contracts/InterCrypto.sol">Github</a>
-          <br>See the live contract on <a id='ic_etherscan_a' href="">Etherscan</a>
-        </p>
-        <div id="intercrypto-dapp" align="left">
-          <div class="row">
-            <div class="col-sm-2">Send Ether to</div>
-            <div class="col-sm-4">
-              <select class="selectpicker" id="ic_symbol" onchange='ic_update()'>
-                <option>Bitcoin</option>
-                <option selected="selected">Litecoin</option>
-                <option>Dash</option>
-                <option>ZCash</option>
-                <option>Dogecoin</option>
-              </select>
-
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-sm-2">Minimum Ether:</div>
-            <div class="col-sm-8">
-              <div class="row">
-                <div id="ic_oracalize_cost" class="col-sm-2"></div>
-                <div class="col-sm-4">Oracalize cost</div>
-              </div>
-              <div class="row">
-                <div id="ic_shapeshift_minimum" class="col-sm-2"></div>
-                <div class="col-sm-4">ShapeShift minimum</div>
-              </div>
-              <div class="row">
-                <div id="ic_minimum_cost" class="col-sm-2"></div>
-                <div class="col-sm-4">Ether</div>
-              </div>
-
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-sm-2">Send</div>
-            <div class="col-sm-4">
-              <input type="text" id="ic_amount" value="0.01"></input>
-              Ether
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-sm-2">To address</div>
-            <div class="col-sm-8">
-              <input type="text" id="ic_address" value="LbZcDdMeP96ko85H21TQii98YFF9RgZg3D"></input>
-              on the <span id="ic_blockchain">Litecoin</span> blockchain
-            </div>
-          </div>
-          <div align="center">
-            <button type="button" class="btn btn-lg btn-primary" onclick="ic_sendToOtherBlockchain()">Send</button>
-            <br>
-            <div id="ic_sendToOtherBlockchain_response"></div>
-          </div>
-        </div>
-        <br>
       </div>
 
       <!-- About -->
@@ -171,7 +129,7 @@
 
         <h1 align="center">About</h1>
         <p>
-          The InterCrypto DAPP provides a decentralized service on the Ethereum blockchain to convert Ether to other crypto-currencies. The InterCrypto DAPP uses the Oracalize DAPP to create a request to ShapeShift to execute this conversion. This page shows a demo Wallet DAPP that exhibits the use case
+          The InterCrypto Smart Contract provides a decentralized service on the Ethereum blockchain to convert Ether to other cryptocurrencies. The InterCrypto Smart Contract uses the Oracalize service to create a request to ShapeShift to execute this conversion. This page shows a demo Wallet Smart Contract that exhibits the use case
           of InterCrypto and also gives direct access to call functions on InterCrypto itself. Connecting to InterCrypto require smart contract coders to import the InterCrypto Interface by including the following line in their solidity smart contract.
           <br>
           <div align="center"><i>import "github.com/ugmo04/inter-crypto/contracts/InterCrypto_Interface.sol";</i>
@@ -185,13 +143,64 @@
           <span id="supported_coins"></span>
         </p>
       </div>
+      <!-- Demo Smart Contract -->
+      <div  style="background-color:lightblue; background-size:cover;">
+        <div id="demo" class="container dapp-text" align="center">
+          <h1>InterCrypto Wallet</h1>
+          <p>The InterCrypto Wallet is a simple contract that allows the owner to withdraw Ether by sending it to a cryptocurrency address on a different blockchain by using the InterCrypto Interface.</p>
+          <p>See source code on <a href="https://github.com/ugmo04/inter-crypto/blob/master/contracts/InterCrypto_Wallet.sol">Github</a>
+            <br>See the live contract on <a id="demo_etherscan_a" href="">Etherscan</a>
+          </p>
+          <div id="demo-dapp" align="letf">
+            <div class="row">
+              <div class="col-sm-2">Deposit to wallet</div>
+              <div class="col-sm-4">
+                <input type="text" id="demo_amount" value="0.1"></input>
+                Ether
+              </div>
+            </div>
+            <div align="center">
+              <button type="button" class="btn btn-lg btn-primary" onclick="demo_deposit()">Deposit</button>
+              <br>
+              <div id="demo_deposit_response"></div>
+            </div>
+
+            <div class="row" align="left">
+              <div class="col-sm-2">Withdraw to</div>
+              <div class="col-sm-4">
+                <select class="selectpicker" id="demo_symbol"  onchange='demo_update()'>
+                  <option>Bitcoin</option>
+                  <option selected="selected">Litecoin</option>
+                  <option>Dash</option>
+                  <option>ZCash</option>
+                  <option>Dogecoin</option>
+                </select>
+              </div>
+            </div>
+            <div class="row" align="left">
+              <div class="col-sm-2">Address</div>
+              <div class="col-sm-8">
+                <input type="text" id="demo_address" value="LbZcDdMeP96ko85H21TQii98YFF9RgZg3D"></input>
+                on the <span id="demo_blockchain">Litecoin</span> blockchain
+              </div>
+            </div>
+            <div align="center">
+              <button type="button" class="btn btn-lg btn-primary" onclick="demo_withdrawal()">Withdrawal</button>
+              <br>
+              <div id="demo_withdrawal_response"></div>
+            </div>
+
+          </div>
+          <br>
+        </div>
+      </div>
     </header>
 
     <footer>
       <div id="donate" class="container dapp-text" align="center" class="dapp-text">
         <h3>Donate to the author</h3>
         <p>
-          This DAPP was written by Jack Tanner as part of a project for the Masters in Computer Science project at Imperial College London.
+          This Smart Contract was written by Jack Tanner as part of a project for the Masters in Computer Science project at Imperial College London.
           <br>
           <a href="https://www.linkedin.com/in/jack-tanner-57113b38/"><img src="http://blog.investis.com/en/wp-content/uploads/2016/02/Linkedin-logo.png" style="width:56px;height:56px;"></a>
           <a href="https://github.com/ugmo04"><img src="https://assets-cdn.github.com/images/modules/open_graph/github-mark.png" style="height:40px;"></a>
