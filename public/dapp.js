@@ -1,5 +1,5 @@
-const ic_contractABI = JSON.parse('[{"constant":false,"inputs":[{"name":"_coinSymbol","type":"string"},{"name":"_toAddress","type":"string"}],"name":"sendToOtherBlockchain1","outputs":[{"name":"","type":"uint256"}],"payable":true,"type":"function"},{"constant":false,"inputs":[{"name":"myid","type":"bytes32"},{"name":"result","type":"string"}],"name":"__callback","outputs":[],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"transactionID","type":"uint256"}],"name":"cancelTransaction","outputs":[],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"oraclize","outputs":[{"name":"","type":"address"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"oracalize_gaslimit","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"constant":false,"inputs":[],"name":"kill","outputs":[],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"_coinSymbol","type":"string"},{"name":"_toAddress","type":"string"},{"name":"_returnAddress","type":"address"}],"name":"sendToOtherBlockchain2","outputs":[{"name":"","type":"uint256"}],"payable":true,"type":"function"},{"constant":true,"inputs":[],"name":"owner","outputs":[{"name":"","type":"address"}],"payable":false,"type":"function"},{"constant":true,"inputs":[{"name":"","type":"address"}],"name":"recoverable","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"constant":true,"inputs":[{"name":"","type":"uint256"}],"name":"transactions","outputs":[{"name":"returnAddress","type":"address"},{"name":"amount","type":"uint256"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"getInterCryptoPrice","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"constant":false,"inputs":[],"name":"update_oracalize","outputs":[],"payable":false,"type":"function"},{"constant":false,"inputs":[],"name":"recover","outputs":[],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"_newLimit","type":"uint256"}],"name":"setGasLimit","outputs":[],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"newOwner","type":"address"}],"name":"transferOwnership","outputs":[],"payable":false,"type":"function"},{"inputs":[],"payable":false,"type":"constructor"},{"payable":true,"type":"fallback"},{"anonymous":false,"inputs":[{"indexed":true,"name":"transactionID","type":"uint256"}],"name":"TransactionStarted","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"transactionID","type":"uint256"},{"indexed":true,"name":"returnAddress","type":"address"},{"indexed":true,"name":"depositAddress","type":"address"},{"indexed":false,"name":"amount","type":"uint256"}],"name":"TransactionSentToShapeShift","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"transactionID","type":"uint256"},{"indexed":false,"name":"reason","type":"string"}],"name":"TransactionAborted","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"recoveredTo","type":"address"},{"indexed":false,"name":"amount","type":"uint256"}],"name":"Recovered","type":"event"}]');
-const demo_contractABI = JSON.parse('[{"constant":true,"inputs":[],"name":"ENSresolverNode","outputs":[{"name":"","type":"bytes32"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"intercrypto_GetInterCryptoPrice","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"_coinSymbol","type":"string"},{"name":"_toAddress","type":"string"}],"name":"withdrawalInterCrypto","outputs":[],"payable":true,"type":"function"},{"constant":false,"inputs":[],"name":"kill","outputs":[],"payable":false,"type":"function"},{"constant":false,"inputs":[],"name":"updateInterCrypto","outputs":[],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"intercrypto_Recoverable","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"constant":false,"inputs":[],"name":"withdrawalNormal","outputs":[],"payable":true,"type":"function"},{"constant":true,"inputs":[],"name":"interCrypto","outputs":[{"name":"","type":"address"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"owner","outputs":[{"name":"","type":"address"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"abstractENS","outputs":[{"name":"","type":"address"}],"payable":false,"type":"function"},{"constant":false,"inputs":[],"name":"deposit","outputs":[],"payable":true,"type":"function"},{"constant":true,"inputs":[{"name":"","type":"address"}],"name":"funds","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"newOwner","type":"address"}],"name":"transferOwnership","outputs":[],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"newNodeName","type":"bytes32"}],"name":"updateENSnode","outputs":[],"payable":false,"type":"function"},{"constant":false,"inputs":[],"name":"intercrypto_Recover","outputs":[],"payable":false,"type":"function"},{"inputs":[],"payable":false,"type":"constructor"},{"payable":true,"type":"fallback"},{"anonymous":false,"inputs":[{"indexed":true,"name":"deposit","type":"address"},{"indexed":false,"name":"amount","type":"uint256"}],"name":"Deposit","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"withdrawal","type":"address"},{"indexed":false,"name":"amount","type":"uint256"}],"name":"WithdrawalNormal","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"transactionID","type":"uint256"}],"name":"WithdrawalInterCrypto","type":"event"}]');
+const ic_contractABI = JSON.parse('[{"constant":false,"inputs":[{"name":"_coinSymbol","type":"string"},{"name":"_toAddress","type":"string"},{"name":"_returnAddress","type":"address"}],"name":"convert2","outputs":[{"name":"","type":"uint256"}],"payable":true,"type":"function"},{"constant":true,"inputs":[{"name":"","type":"uint256"}],"name":"conversions","outputs":[{"name":"returnAddress","type":"address"},{"name":"amount","type":"uint256"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"myid","type":"bytes32"},{"name":"result","type":"string"}],"name":"__callback","outputs":[],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"_coinSymbol","type":"string"},{"name":"_toAddress","type":"string"}],"name":"convert1","outputs":[{"name":"","type":"uint256"}],"payable":true,"type":"function"},{"constant":true,"inputs":[],"name":"oraclize","outputs":[{"name":"","type":"address"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"oracalize_gaslimit","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"constant":false,"inputs":[],"name":"kill","outputs":[],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"owner","outputs":[{"name":"","type":"address"}],"payable":false,"type":"function"},{"constant":true,"inputs":[{"name":"","type":"address"}],"name":"recoverable","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"conversionID","type":"uint256"}],"name":"cancelConversion","outputs":[],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"getInterCryptoPrice","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"constant":false,"inputs":[],"name":"update_oracalize","outputs":[],"payable":false,"type":"function"},{"constant":false,"inputs":[],"name":"recover","outputs":[],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"_newLimit","type":"uint256"}],"name":"setGasLimit","outputs":[],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"newOwner","type":"address"}],"name":"transferOwnership","outputs":[],"payable":false,"type":"function"},{"inputs":[],"payable":false,"type":"constructor"},{"payable":true,"type":"fallback"},{"anonymous":false,"inputs":[{"indexed":true,"name":"conversionID","type":"uint256"}],"name":"ConversionStarted","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"conversionID","type":"uint256"},{"indexed":true,"name":"returnAddress","type":"address"},{"indexed":true,"name":"depositAddress","type":"address"},{"indexed":false,"name":"amount","type":"uint256"}],"name":"ConversionSentToShapeShift","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"conversionID","type":"uint256"},{"indexed":false,"name":"reason","type":"string"}],"name":"ConversionAborted","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"recoveredTo","type":"address"},{"indexed":false,"name":"amount","type":"uint256"}],"name":"Recovered","type":"event"}]');
+const demo_contractABI = JSON.parse('[{"constant":true,"inputs":[],"name":"ENSresolverNode","outputs":[{"name":"","type":"bytes32"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"intercrypto_getInterCryptoPrice","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"_coinSymbol","type":"string"},{"name":"_toAddress","type":"string"}],"name":"withdrawalInterCrypto","outputs":[],"payable":true,"type":"function"},{"constant":false,"inputs":[],"name":"kill","outputs":[],"payable":false,"type":"function"},{"constant":false,"inputs":[],"name":"updateInterCrypto","outputs":[],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"conversionID","type":"uint256"}],"name":"intercrypto_cancelConversion","outputs":[],"payable":false,"type":"function"},{"constant":false,"inputs":[],"name":"withdrawalNormal","outputs":[],"payable":true,"type":"function"},{"constant":true,"inputs":[],"name":"interCrypto","outputs":[{"name":"","type":"address"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"owner","outputs":[{"name":"","type":"address"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"intercrypto_recoverable","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"abstractENS","outputs":[{"name":"","type":"address"}],"payable":false,"type":"function"},{"constant":false,"inputs":[],"name":"deposit","outputs":[],"payable":true,"type":"function"},{"constant":true,"inputs":[{"name":"","type":"address"}],"name":"funds","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"newOwner","type":"address"}],"name":"transferOwnership","outputs":[],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"newNodeName","type":"bytes32"}],"name":"updateENSnode","outputs":[],"payable":false,"type":"function"},{"constant":false,"inputs":[],"name":"intercrypto_recover","outputs":[],"payable":false,"type":"function"},{"inputs":[],"payable":false,"type":"constructor"},{"payable":true,"type":"fallback"},{"anonymous":false,"inputs":[{"indexed":true,"name":"deposit","type":"address"},{"indexed":false,"name":"amount","type":"uint256"}],"name":"Deposit","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"withdrawal","type":"address"},{"indexed":false,"name":"amount","type":"uint256"}],"name":"WithdrawalNormal","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"conversionID","type":"uint256"}],"name":"WithdrawalInterCrypto","type":"event"}]');
 const ens_contractABI = JSON.parse('[{"constant":true,"inputs":[{"name":"node","type":"bytes32"}],"name":"resolver","outputs":[{"name":"","type":"address"}],"payable":false,"type":"function"},{"constant":true,"inputs":[{"name":"node","type":"bytes32"}],"name":"owner","outputs":[{"name":"","type":"address"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"node","type":"bytes32"},{"name":"label","type":"bytes32"},{"name":"owner","type":"address"}],"name":"setSubnodeOwner","outputs":[],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"node","type":"bytes32"},{"name":"ttl","type":"uint64"}],"name":"setTTL","outputs":[],"payable":false,"type":"function"},{"constant":true,"inputs":[{"name":"node","type":"bytes32"}],"name":"ttl","outputs":[{"name":"","type":"uint64"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"node","type":"bytes32"},{"name":"resolver","type":"address"}],"name":"setResolver","outputs":[],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"node","type":"bytes32"},{"name":"owner","type":"address"}],"name":"setOwner","outputs":[],"payable":false,"type":"function"},{"anonymous":false,"inputs":[{"indexed":true,"name":"node","type":"bytes32"},{"indexed":true,"name":"label","type":"bytes32"},{"indexed":false,"name":"owner","type":"address"}],"name":"NewOwner","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"node","type":"bytes32"},{"indexed":false,"name":"owner","type":"address"}],"name":"Transfer","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"node","type":"bytes32"},{"indexed":false,"name":"resolver","type":"address"}],"name":"NewResolver","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"node","type":"bytes32"},{"indexed":false,"name":"ttl","type":"uint64"}],"name":"NewTTL","type":"event"}]');
 
 // MAKE SURE THAT ABIs are maintainned updated
@@ -109,28 +109,28 @@ window.onload = function() {
                   document.getElementById('demo_etherscan_a').href = etherscan_url + 'address/' + demo_contractAddress;
 
                   // Start watching contracts
-                  InterCrypto.TransactionStarted((error, result) => {
+                  InterCrypto.ConversionStarted((error, result) => {
                     if (!error) {
-                      transactionIDresult = result.args.transactionID;
-                      updateElement('ic_sendToOtherBlockchain_response', '<div class="alert alert-info" role="alert">TransactionStarted(transactionID: ' + transactionIDresult + ')</div>');
+                      conversionIDresult = result.args.conversionID;
+                      updateElement('ic_convert_response', '<div class="alert alert-info" role="alert">ConversionStarted(conversionID: ' + conversionIDresult + ')</div>');
                     }
                   });
-                  InterCrypto.TransactionAborted((error, result) => {
+                  InterCrypto.ConversionAborted((error, result) => {
                     if (!error) {
-                      transactionIDresult = result.args.transactionID;
-                      updateElement('ic_sendToOtherBlockchain_response', '<div class="alert alert-danger" role="alert">TransactionAborted(transactionID: ' + transactionIDresult + ', reason: ' + result.args.reason + ')</div>');
+                      conversionIDresult = result.args.conversionID;
+                      updateElement('ic_convert_response', '<div class="alert alert-danger" role="alert">ConversionAborted(conversionID: ' + conversionIDresult + ', reason: ' + result.args.reason + ')</div>');
                     }
                   });
-                  InterCrypto.TransactionSentToShapeShift((error, result) => {
+                  InterCrypto.ConversionSentToShapeShift((error, result) => {
                     if (!error) {
-                      transactionIDresult = result.args.transactionID;
-                      updateElement('ic_sendToOtherBlockchain_response', '<div class="alert alert-success" role="alert">TransactionSentToShapeShift(transactionID: ' + transactionIDresult + ', returnAddress: <a href="'+etherscan_url+'address/'+result.args.returnAddress+'">' + result.args.returnAddress + '</a>, depositAddress: <a href="'+etherscan_url+'address/'+result.args.depositAddress+'">' + result.args.depositAddress + '</a>, amount: ' + result.args.amount + ')</div>');
+                      conversionIDresult = result.args.conversionID;
+                      updateElement('ic_convert_response', '<div class="alert alert-success" role="alert">ConversionSentToShapeShift(conversionID: ' + conversionIDresult + ', returnAddress: <a href="'+etherscan_url+'address/'+result.args.returnAddress+'">' + result.args.returnAddress + '</a>, depositAddress: <a href="'+etherscan_url+'address/'+result.args.depositAddress+'">' + result.args.depositAddress + '</a>, amount: ' + result.args.amount + ')</div>');
                     }
                   });
                   InterCrypto.Recovered((error, result) => {
                     if (!error) {
-                      transactionIDresult = result.args.transactionID;
-                      updateElement('ic_sendToOtherBlockchain_response', '<div class="alert alert-success" role="alert">Recovered(recoveredTo: ' + result.args.recoveredTo + ', amount: ' + result.args.amount + ')</div>');
+                      conversionIDresult = result.args.conversionID;
+                      updateElement('ic_convert_response', '<div class="alert alert-success" role="alert">Recovered(recoveredTo: ' + result.args.recoveredTo + ', amount: ' + result.args.amount + ')</div>');
                     }
                   });
                   InterCrypto_Demo.Deposit( (error, result) => {
@@ -145,8 +145,8 @@ window.onload = function() {
                   });
                   InterCrypto_Demo.WithdrawalInterCrypto( (error, result) => {
                     if (!error) {
-                      transactionIDresult = result.args.transactionID;
-                      updateElement('demo_withdrawal_response', '<div class="alert alert-success" role="alert">WithdrawalInterCrypto(transactionID: ' + transactionIDresult + ')</div>');
+                      conversionIDresult = result.args.conversionID;
+                      updateElement('demo_withdrawal_response', '<div class="alert alert-success" role="alert">WithdrawalInterCrypto(conversionID: ' + conversionIDresult + ')</div>');
                     }
                   });
 
@@ -307,7 +307,7 @@ function ic_getInterCryptoPrice(callback) {
 function ic_getShapeShiftMarket(callback) {
   var symbol = getICSymbol(document.getElementById('ic_symbol').value);
   if (symbol == 0)
-    document.getElementById('ic_sendToOtherBlockchain_response').innerHTML = '<div class="alert alert-warning" role="alert>Currency symbol not found</div>';
+    document.getElementById('ic_convert_response').innerHTML = '<div class="alert alert-warning" role="alert>Currency symbol not found</div>';
   else {
     $.ajax({
       type: 'GET',
@@ -328,11 +328,11 @@ function ic_setMinimumCost(cost) {
   document.getElementById('ic_minimum_cost').innerHTML = '=' + cost.toFixed(6);
 }
 
-function ic_sendToOtherBlockchain() {
+function ic_convert() {
   var amountToSend = web3.toWei(document.getElementById("ic_amount").value, 'ether')
   var symbol = getICSymbol(document.getElementById('ic_symbol').value);
   if (symbol == 0)
-    document.getElementById('ic_sendToOtherBlockchain_response').innerHTML = '<div class="alert alert-warning" role="alert>Currency symbol not found</div>';
+    document.getElementById('ic_convert_response').innerHTML = '<div class="alert alert-warning" role="alert>Currency symbol not found</div>';
   else {
     // symbol += "xxxxx"; // useme to trip up the input and show desired error warnings
     var address = document.getElementById("ic_address").value
@@ -344,24 +344,24 @@ function ic_sendToOtherBlockchain() {
       // dataType: 'json',
       success: function(responseData, textStatus, jqXHR) {
           if (responseData.isvalid) {
-            updateElement('ic_sendToOtherBlockchain_response', '<div class="alert alert-success" role="alert">Address and symbol are valid for use by ShapeShift</div>');
-            updateElement('ic_sendToOtherBlockchain_response', '<div class="alert alert-success" role="alert">InterCrypto.sendToOtherBlockchain("' + symbol + '", "' + address + '", {value: ' + amountToSend + '})</div>');
+            updateElement('ic_convert_response', '<div class="alert alert-success" role="alert">Address and symbol are valid for use by ShapeShift</div>');
+            updateElement('ic_convert_response', '<div class="alert alert-success" role="alert">InterCrypto.convert1("' + symbol + '", "' + address + '", {value: ' + amountToSend + '})</div>');
 
-            InterCrypto.sendToOtherBlockchain1(symbol, address, {value: amountToSend}, (error, result) => {
+            InterCrypto.convert1(symbol, address, {value: amountToSend}, (error, result) => {
               if (error)
-                updateElement('ic_sendToOtherBlockchain_response', '<div class="alert alert-warning" role="alert">' + error + '</div>');
+                updateElement('ic_convert_response', '<div class="alert alert-warning" role="alert">' + error + '</div>');
               else {
-                updateElement('ic_sendToOtherBlockchain_response', '<div class="alert alert-success" role="alert">Tx: <a href="' + etherscan_url + 'tx/' + result + '">' + result + '</a></div>');
+                updateElement('ic_convert_response', '<div class="alert alert-success" role="alert">Tx: <a href="' + etherscan_url + 'tx/' + result + '">' + result + '</a></div>');
               }
             });
           }
           else {
-            updateElement('ic_sendToOtherBlockchain_response', '<div class="alert alert-danger" role="alert">Address and symbol are NOT currently valid for use by ShapeShift</div>');
+            updateElement('ic_convert_response', '<div class="alert alert-danger" role="alert">Address and symbol are NOT currently valid for use by ShapeShift</div>');
           }
       },
       error: function (responseData, textStatus, errorThrown) {
         console.log("error: " + errorThrown);
-        updateElement('ic_sendToOtherBlockchain_response', '<div class="alert alert-danger" role="alert>Could not verify address and smbol with ShapeShift</div>');
+        updateElement('ic_convert_response', '<div class="alert alert-danger" role="alert>Could not verify address and smbol with ShapeShift</div>');
       }
     });
   }
@@ -395,7 +395,7 @@ function demo_withdrawal() {
     // symbol += "xxxxx"; // useme to trip up the input and show desired error warnings
     var address = document.getElementById("demo_address").value;
 
-    updateElement('demo_withdrawal_response', '<div class="alert alert-warning" role="alert">Address and symbol are not validated, this is so that the recovery features of InterCrypto can be exhibited. Please use the InterCrypto smart contract interface above which will validate addresses before submitting a transaction</div>');
+    updateElement('demo_withdrawal_response', '<div class="alert alert-warning" role="alert">Address and symbol are not validated, this is so that the recovery features of InterCrypto can be exhibited. Please use the InterCrypto smart contract interface above which will validate addresses before submitting a conversion</div>');
     // $.ajax({
     //   type: 'GET',
     //   url: 'https://cors.shapeshift.io/validateAddress/' + address + '/' + symbol,
@@ -420,7 +420,7 @@ function demo_withdrawal() {
     //   },
     //   error: function (responseData, textStatus, errorThrown) {
     //     console.log("error: " + errorThrown);
-    //     updateElement('ic_sendToOtherBlockchain_response', '<div class="alert alert-danger" role="alert>Could not verify address and smbol with ShapeShift</div>');
+    //     updateElement('ic_convert_response', '<div class="alert alert-danger" role="alert>Could not verify address and smbol with ShapeShift</div>');
     //   }
     // });
 

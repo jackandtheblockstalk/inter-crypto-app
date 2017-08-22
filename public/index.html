@@ -115,9 +115,9 @@
               </div>
             </div>
             <div align="center">
-              <button type="button" class="btn btn-lg btn-primary" onclick="ic_sendToOtherBlockchain()">Send</button>
+              <button type="button" class="btn btn-lg btn-primary" onclick="ic_convert()">Send</button>
               <br>
-              <div id="ic_sendToOtherBlockchain_response"></div>
+              <div id="ic_convert_response"></div>
             </div>
           </div>
           <br>
@@ -146,7 +146,7 @@
         <p>
           <div class="alert alert-success" role="alert">The InterCrypto smart contract code was casually reviewed by smart contract expert <a href="https://www.linkedin.com/in/extropylaurence/">Laurence Kink</a> who found no major problems with the code. The InterCrypto author, Jack Tanner, considers the contract ready for use and users should read the academic report for more details.</div>
         </p>
-        <div class="alert alert-warning" role="alert">The InterCrypto smart contract exists on the Ethereum blockchain 'as is' without warranty of any kind, either express or implied by the autor or any other sta, including, but not limited to, the implied warranties of fitness for a purpose, or the warranty of non-infringement.</div>
+        <div class="alert alert-warning" role="alert">The InterCrypto smart contract exists on the Ethereum blockchain 'as is' without warranty of any kind, either express or implied by the autor or any other party, including, but not limited to, the implied warranties of fitness for a purpose, or the warranty of non-infringement.</div>
         <p>
           This website is open-source and runs client-side only. No keys are ever sent to or stored by intercrypto.org. You can check out the website source code for this page on <a href="https://github.com/ugmo04/inter-crypto-app">Github</a> and run it locally if you like.
         </p>
@@ -159,10 +159,12 @@
           </div>
           <div class="col-sm-8">
             <div class="panel panel-default">
-              <div class="panel-body">
+              <div class="panel-body" style="font-size:75%">
                 <i>import "github.com/ugmo04/inter-crypto/contracts/InterCrypto_Interface.sol";
-                <br><br>contract InterCrypto_Wallet is usingInterCrypto {
-                <br>&nbsp&nbsp&nbsp&nbsp&nbsp...
+                <br><br>contract MySmartContract is usingInterCrypto {
+                <br>&nbsp&nbsp&nbsp&nbsp&nbspfunction myConvert(_coinSymbol, _toAddress) payable external {
+                <br>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspuint conversionID = intercrypto_convert(msg.value, _coinSymbol, _toAddress);
+                <br>&nbsp&nbsp&nbsp&nbsp&nbsp}
                 <br>}</i>
               </div>
             </div>
