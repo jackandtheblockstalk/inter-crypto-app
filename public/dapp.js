@@ -1,6 +1,7 @@
 const ic_contractABI = JSON.parse('[{"constant":false,"inputs":[{"name":"_coinSymbol","type":"string"},{"name":"_toAddress","type":"string"},{"name":"_returnAddress","type":"address"}],"name":"convert2","outputs":[{"name":"","type":"uint256"}],"payable":true,"type":"function"},{"constant":true,"inputs":[{"name":"","type":"uint256"}],"name":"conversions","outputs":[{"name":"returnAddress","type":"address"},{"name":"amount","type":"uint256"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"myid","type":"bytes32"},{"name":"result","type":"string"}],"name":"__callback","outputs":[],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"_coinSymbol","type":"string"},{"name":"_toAddress","type":"string"}],"name":"convert1","outputs":[{"name":"","type":"uint256"}],"payable":true,"type":"function"},{"constant":true,"inputs":[],"name":"oraclize","outputs":[{"name":"","type":"address"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"oracalize_gaslimit","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"constant":false,"inputs":[],"name":"kill","outputs":[],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"owner","outputs":[{"name":"","type":"address"}],"payable":false,"type":"function"},{"constant":true,"inputs":[{"name":"","type":"address"}],"name":"recoverable","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"conversionID","type":"uint256"}],"name":"cancelConversion","outputs":[],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"getInterCryptoPrice","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"constant":false,"inputs":[],"name":"update_oracalize","outputs":[],"payable":false,"type":"function"},{"constant":false,"inputs":[],"name":"recover","outputs":[],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"_newLimit","type":"uint256"}],"name":"setGasLimit","outputs":[],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"newOwner","type":"address"}],"name":"transferOwnership","outputs":[],"payable":false,"type":"function"},{"inputs":[],"payable":false,"type":"constructor"},{"payable":true,"type":"fallback"},{"anonymous":false,"inputs":[{"indexed":true,"name":"conversionID","type":"uint256"}],"name":"ConversionStarted","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"conversionID","type":"uint256"},{"indexed":true,"name":"returnAddress","type":"address"},{"indexed":true,"name":"depositAddress","type":"address"},{"indexed":false,"name":"amount","type":"uint256"}],"name":"ConversionSentToShapeShift","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"conversionID","type":"uint256"},{"indexed":false,"name":"reason","type":"string"}],"name":"ConversionAborted","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"recoveredTo","type":"address"},{"indexed":false,"name":"amount","type":"uint256"}],"name":"Recovered","type":"event"}]');
 const demo_contractABI = JSON.parse('[{"constant":true,"inputs":[],"name":"ENSresolverNode","outputs":[{"name":"","type":"bytes32"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"intercrypto_getInterCryptoPrice","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"_coinSymbol","type":"string"},{"name":"_toAddress","type":"string"}],"name":"withdrawalInterCrypto","outputs":[],"payable":true,"type":"function"},{"constant":false,"inputs":[],"name":"kill","outputs":[],"payable":false,"type":"function"},{"constant":false,"inputs":[],"name":"updateInterCrypto","outputs":[],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"conversionID","type":"uint256"}],"name":"intercrypto_cancelConversion","outputs":[],"payable":false,"type":"function"},{"constant":false,"inputs":[],"name":"withdrawalNormal","outputs":[],"payable":true,"type":"function"},{"constant":true,"inputs":[],"name":"interCrypto","outputs":[{"name":"","type":"address"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"owner","outputs":[{"name":"","type":"address"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"intercrypto_recoverable","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"abstractENS","outputs":[{"name":"","type":"address"}],"payable":false,"type":"function"},{"constant":false,"inputs":[],"name":"deposit","outputs":[],"payable":true,"type":"function"},{"constant":true,"inputs":[{"name":"","type":"address"}],"name":"funds","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"newOwner","type":"address"}],"name":"transferOwnership","outputs":[],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"newNodeName","type":"bytes32"}],"name":"updateENSnode","outputs":[],"payable":false,"type":"function"},{"constant":false,"inputs":[],"name":"intercrypto_recover","outputs":[],"payable":false,"type":"function"},{"inputs":[],"payable":false,"type":"constructor"},{"payable":true,"type":"fallback"},{"anonymous":false,"inputs":[{"indexed":true,"name":"deposit","type":"address"},{"indexed":false,"name":"amount","type":"uint256"}],"name":"Deposit","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"withdrawal","type":"address"},{"indexed":false,"name":"amount","type":"uint256"}],"name":"WithdrawalNormal","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"conversionID","type":"uint256"}],"name":"WithdrawalInterCrypto","type":"event"}]');
 const ens_contractABI = JSON.parse('[{"constant":true,"inputs":[{"name":"node","type":"bytes32"}],"name":"resolver","outputs":[{"name":"","type":"address"}],"payable":false,"type":"function"},{"constant":true,"inputs":[{"name":"node","type":"bytes32"}],"name":"owner","outputs":[{"name":"","type":"address"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"node","type":"bytes32"},{"name":"label","type":"bytes32"},{"name":"owner","type":"address"}],"name":"setSubnodeOwner","outputs":[],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"node","type":"bytes32"},{"name":"ttl","type":"uint64"}],"name":"setTTL","outputs":[],"payable":false,"type":"function"},{"constant":true,"inputs":[{"name":"node","type":"bytes32"}],"name":"ttl","outputs":[{"name":"","type":"uint64"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"node","type":"bytes32"},{"name":"resolver","type":"address"}],"name":"setResolver","outputs":[],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"node","type":"bytes32"},{"name":"owner","type":"address"}],"name":"setOwner","outputs":[],"payable":false,"type":"function"},{"anonymous":false,"inputs":[{"indexed":true,"name":"node","type":"bytes32"},{"indexed":true,"name":"label","type":"bytes32"},{"indexed":false,"name":"owner","type":"address"}],"name":"NewOwner","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"node","type":"bytes32"},{"indexed":false,"name":"owner","type":"address"}],"name":"Transfer","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"node","type":"bytes32"},{"indexed":false,"name":"resolver","type":"address"}],"name":"NewResolver","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"node","type":"bytes32"},{"indexed":false,"name":"ttl","type":"uint64"}],"name":"NewTTL","type":"event"}]');
+const resolver_contractABI = JSON.parse('[{"constant":true,"inputs":[{"name":"interfaceID","type":"bytes4"}],"name":"supportsInterface","outputs":[{"name":"","type":"bool"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"node","type":"bytes32"},{"name":"key","type":"string"},{"name":"value","type":"string"}],"name":"setText","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"name":"node","type":"bytes32"},{"name":"contentTypes","type":"uint256"}],"name":"ABI","outputs":[{"name":"contentType","type":"uint256"},{"name":"data","type":"bytes"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"node","type":"bytes32"},{"name":"x","type":"bytes32"},{"name":"y","type":"bytes32"}],"name":"setPubkey","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"name":"node","type":"bytes32"}],"name":"content","outputs":[{"name":"ret","type":"bytes32"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"node","type":"bytes32"}],"name":"addr","outputs":[{"name":"ret","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"node","type":"bytes32"},{"name":"key","type":"string"}],"name":"text","outputs":[{"name":"ret","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"node","type":"bytes32"},{"name":"contentType","type":"uint256"},{"name":"data","type":"bytes"}],"name":"setABI","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"name":"node","type":"bytes32"}],"name":"name","outputs":[{"name":"ret","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"node","type":"bytes32"},{"name":"name","type":"string"}],"name":"setName","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"node","type":"bytes32"},{"name":"hash","type":"bytes32"}],"name":"setContent","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"name":"node","type":"bytes32"}],"name":"pubkey","outputs":[{"name":"x","type":"bytes32"},{"name":"y","type":"bytes32"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"node","type":"bytes32"},{"name":"addr","type":"address"}],"name":"setAddr","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"inputs":[{"name":"ensAddr","type":"address"}],"payable":false,"stateMutability":"nonpayable","type":"constructor"},{"anonymous":false,"inputs":[{"indexed":true,"name":"node","type":"bytes32"},{"indexed":false,"name":"a","type":"address"}],"name":"AddrChanged","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"node","type":"bytes32"},{"indexed":false,"name":"hash","type":"bytes32"}],"name":"ContentChanged","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"node","type":"bytes32"},{"indexed":false,"name":"name","type":"string"}],"name":"NameChanged","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"node","type":"bytes32"},{"indexed":true,"name":"contentType","type":"uint256"}],"name":"ABIChanged","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"node","type":"bytes32"},{"indexed":false,"name":"x","type":"bytes32"},{"indexed":false,"name":"y","type":"bytes32"}],"name":"PubkeyChanged","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"node","type":"bytes32"},{"indexed":true,"name":"indexedKey","type":"string"},{"indexed":false,"name":"key","type":"string"}],"name":"TextChanged","type":"event"}]');
 
 // MAKE SURE THAT ABIs are maintainned updated
 const rinkeby_etherscan = 'https://rinkeby.etherscan.io/';
@@ -13,8 +14,8 @@ const rinkeby_ens_node_name = 'jackdomain.test';
 const mainnet_ens_node_name = 'jacksplace.eth';
 const intercrypto_label = 'intercrypto';
 const wallet_label = 'wallet';
-var jacksAddress;
 
+var jacksAddress;
 var networkId;
 var ic_contractAddress;
 var demo_contractAddress;
@@ -26,9 +27,11 @@ var etherscan_url;
 var ic_myContract;
 var demo_myContract;
 var ens_myContract;
+var resolver_myContract;
 var InterCrypto;
 var InterCrypto_Demo;
 var ens;
+var resolver;
 var coins = new Map();
 
 // MetaMask injects the web3 library for us.
@@ -75,127 +78,137 @@ window.onload = function() {
 
           ens.resolver(namehash(ens_node_name), (error, result) => {
             if (error) {
-              displayDAPPContent('<div class="alert alert-danger" role="alert" align="center">My address could not be resolved from ENS</div>');
+              displayDAPPContent('<div class="alert alert-danger" role="alert" align="center">ENS Public Resolver could not be found</div>');
             }
             else {
-              jacksAddress = result;
-              updateElement('jacks_address', jacksAddress + '<br>ENS: "' + ens_node_name + '"');
-            }
-          })
+              resolver_myContract = web3.eth.contract(resolver_contractABI);
+              resolver = resolver_myContract.at(result);
 
-          ens.resolver(ic_ens_node, (error, result) => {
-            if (error || result == '0x0000000000000000000000000000000000000000') {
-              displayDAPPContent('<div class="alert alert-danger" role="alert" align="center">InterCrypto address could not be resolved from ENS</div>');
-              console.log('error: ' + error);
-            }
-            else {
-              ic_contractAddress = result;
-              ens.resolver(demo_ens_node, (error, result) => {
+              resolver.addr(namehash(ens_node_name), (error, result) => {
+                if (error) {
+                  displayDAPPContent('<div class="alert alert-danger" role="alert" align="center">My address could not be resolved from ENS</div>');
+                }
+                else {
+                  jacksAddress = result;
+                  updateElement('jacks_address', jacksAddress + '<br>ENS: "' + ens_node_name + '"');
+                }
+              })
+
+              resolver.addr(ic_ens_node, (error, result) => {
                 if (error || result == '0x0000000000000000000000000000000000000000') {
-                  displayDAPPContent('<div class="alert alert-danger" role="alert" align="center">InterCrypto_Wallet address could not be resolved from ENS</div>');
+                  displayDAPPContent('<div class="alert alert-danger" role="alert" align="center">InterCrypto address could not be resolved from ENS</div>');
                   console.log('error: ' + error);
                 }
                 else {
-                  demo_contractAddress = result;
-                  ic_myContract = web3.eth.contract(ic_contractABI);
-                  InterCrypto = ic_myContract.at(ic_contractAddress);
+                  ic_contractAddress = result;
+                  resolver.addr(demo_ens_node, (error, result) => {
+                    if (error || result == '0x0000000000000000000000000000000000000000') {
+                      displayDAPPContent('<div class="alert alert-danger" role="alert" align="center">InterCrypto_Wallet address could not be resolved from ENS</div>');
+                      console.log('error: ' + error);
+                    }
+                    else {
+                      demo_contractAddress = result;
+                      ic_myContract = web3.eth.contract(ic_contractABI);
+                      InterCrypto = ic_myContract.at(ic_contractAddress);
 
-                  demo_myContract = web3.eth.contract(demo_contractABI);
-                  InterCrypto_Demo = demo_myContract.at(demo_contractAddress);
+                      demo_myContract = web3.eth.contract(demo_contractABI);
+                      InterCrypto_Demo = demo_myContract.at(demo_contractAddress);
 
-                  ic_update();
+                      ic_update();
 
-                  document.getElementById('ic_etherscan_a').href = etherscan_url + 'address/' + ic_contractAddress;
-                  document.getElementById('demo_etherscan_a').href = etherscan_url + 'address/' + demo_contractAddress;
+                      document.getElementById('ic_etherscan_a').href = etherscan_url + 'address/' + ic_contractAddress;
+                      document.getElementById('demo_etherscan_a').href = etherscan_url + 'address/' + demo_contractAddress;
 
-                  // Start watching contracts
-                  InterCrypto.ConversionStarted((error, result) => {
-                    if (!error) {
-                      conversionIDresult = result.args.conversionID;
-                      updateElement('ic_convert_response', '<div class="alert alert-info" role="alert">ConversionStarted(conversionID: ' + conversionIDresult + ')</div>');
-                    }
-                  });
-                  InterCrypto.ConversionAborted((error, result) => {
-                    if (!error) {
-                      conversionIDresult = result.args.conversionID;
-                      updateElement('ic_convert_response', '<div class="alert alert-danger" role="alert">ConversionAborted(conversionID: ' + conversionIDresult + ', reason: ' + result.args.reason + ')</div>');
-                    }
-                  });
-                  InterCrypto.ConversionSentToShapeShift((error, result) => {
-                    if (!error) {
-                      conversionIDresult = result.args.conversionID;
-                      updateElement('ic_convert_response', '<div class="alert alert-success" role="alert">ConversionSentToShapeShift(conversionID: ' + conversionIDresult + ', returnAddress: <a href="'+etherscan_url+'address/'+result.args.returnAddress+'">' + result.args.returnAddress + '</a>, depositAddress: <a href="'+etherscan_url+'address/'+result.args.depositAddress+'">' + result.args.depositAddress + '</a>, amount: ' + result.args.amount + ')</div>');
-                    }
-                  });
-                  InterCrypto.Recovered((error, result) => {
-                    if (!error) {
-                      conversionIDresult = result.args.conversionID;
-                      updateElement('ic_convert_response', '<div class="alert alert-success" role="alert">Recovered(recoveredTo: ' + result.args.recoveredTo + ', amount: ' + result.args.amount + ')</div>');
-                    }
-                  });
-                  InterCrypto_Demo.Deposit( (error, result) => {
-                    if (!error) {
-                      updateElement('demo_deposit_response', '<div class="alert alert-success" role="alert">Deposit(deposit: ' + result.args.deposit + ', amount: ' + result.args.amount + ')</div>');
-                    }
-                  });
-                  InterCrypto_Demo.WithdrawalNormal( (error, result) => {
-                    if (!error) {
-                      updateElement('demo_withdrawal_response', '<div class="alert alert-success" role="alert">WithdrawalNormal(withdrawal: ' + result.args.withdrawal + ', amount: ' + result.args.amount + ')</div>');
-                    }
-                  });
-                  InterCrypto_Demo.WithdrawalInterCrypto( (error, result) => {
-                    if (!error) {
-                      conversionIDresult = result.args.conversionID;
-                      updateElement('demo_withdrawal_response', '<div class="alert alert-success" role="alert">WithdrawalInterCrypto(conversionID: ' + conversionIDresult + ')</div>');
-                    }
-                  });
+                      // Start watching contracts
+                      InterCrypto.ConversionStarted((error, result) => {
+                        if (!error) {
+                          conversionIDresult = result.args.conversionID;
+                          updateElement('ic_convert_response', '<div class="alert alert-info" role="alert">ConversionStarted(conversionID: ' + conversionIDresult + ')</div>');
+                        }
+                      });
+                      InterCrypto.ConversionAborted((error, result) => {
+                        if (!error) {
+                          conversionIDresult = result.args.conversionID;
+                          updateElement('ic_convert_response', '<div class="alert alert-danger" role="alert">ConversionAborted(conversionID: ' + conversionIDresult + ', reason: ' + result.args.reason + ')</div>');
+                        }
+                      });
+                      InterCrypto.ConversionSentToShapeShift((error, result) => {
+                        if (!error) {
+                          conversionIDresult = result.args.conversionID;
+                          updateElement('ic_convert_response', '<div class="alert alert-success" role="alert">ConversionSentToShapeShift(conversionID: ' + conversionIDresult + ', returnAddress: <a href="'+etherscan_url+'address/'+result.args.returnAddress+'">' + result.args.returnAddress + '</a>, depositAddress: <a href="'+etherscan_url+'address/'+result.args.depositAddress+'">' + result.args.depositAddress + '</a>, amount: ' + result.args.amount + ')</div>');
+                        }
+                      });
+                      InterCrypto.Recovered((error, result) => {
+                        if (!error) {
+                          conversionIDresult = result.args.conversionID;
+                          updateElement('ic_convert_response', '<div class="alert alert-success" role="alert">Recovered(recoveredTo: ' + result.args.recoveredTo + ', amount: ' + result.args.amount + ')</div>');
+                        }
+                      });
+                      InterCrypto_Demo.Deposit( (error, result) => {
+                        if (!error) {
+                          updateElement('demo_deposit_response', '<div class="alert alert-success" role="alert">Deposit(deposit: ' + result.args.deposit + ', amount: ' + result.args.amount + ')</div>');
+                        }
+                      });
+                      InterCrypto_Demo.WithdrawalNormal( (error, result) => {
+                        if (!error) {
+                          updateElement('demo_withdrawal_response', '<div class="alert alert-success" role="alert">WithdrawalNormal(withdrawal: ' + result.args.withdrawal + ', amount: ' + result.args.amount + ')</div>');
+                        }
+                      });
+                      InterCrypto_Demo.WithdrawalInterCrypto( (error, result) => {
+                        if (!error) {
+                          conversionIDresult = result.args.conversionID;
+                          updateElement('demo_withdrawal_response', '<div class="alert alert-success" role="alert">WithdrawalInterCrypto(conversionID: ' + conversionIDresult + ')</div>');
+                        }
+                      });
 
-                  $.ajax({
-                    type: 'GET',
-                    url: 'https://cors.shapeshift.io/getcoins',
-                    crossDomain: true,
-                    // data: '{"withdrawal":"DMAFvwTH2upni7eTau8au6Rktgm2bUkMei","pair":"eth_doge","returnAddress":"558999ff2e0daefcb4fcded4c89e07fdf9ccb56c"}',
-                    // dataType: 'json',
-                    success: function(responseData, textStatus, jqXHR) {
-                      for (var key in responseData) {
-                        if (responseData.hasOwnProperty(key)) {
-                          if (responseData[key].status == "available" && responseData[key].name != "Ether") {
-                              coins[responseData[key].name] = {
-                                name: responseData[key].name,
-                                symbol: responseData[key].symbol.toLowerCase(),
-                                image: responseData[key].imageSmall,
+                      $.ajax({
+                        type: 'GET',
+                        url: 'https://cors.shapeshift.io/getcoins',
+                        crossDomain: true,
+                        // data: '{"withdrawal":"DMAFvwTH2upni7eTau8au6Rktgm2bUkMei","pair":"eth_doge","returnAddress":"558999ff2e0daefcb4fcded4c89e07fdf9ccb56c"}',
+                        // dataType: 'json',
+                        success: function(responseData, textStatus, jqXHR) {
+                          for (var key in responseData) {
+                            if (responseData.hasOwnProperty(key)) {
+                              if (responseData[key].status == "available" && responseData[key].name != "Ether") {
+                                  coins[responseData[key].name] = {
+                                    name: responseData[key].name,
+                                    symbol: responseData[key].symbol.toLowerCase(),
+                                    image: responseData[key].imageSmall,
+                                  }
                               }
+                            }
                           }
-                        }
-                      }
-                      // TODO: update selection lists
-                      // TODO: link selection lists to coin symbols
-                      var coinString = "";
-                      for (var key in coins) {
-                        if (coins.hasOwnProperty(key)) {
-                          if (coins[key].symbol == "zec") {
-                            coinString = coinString + ', <a onclick="phrase_cookie()"><img src="' + coins[key].image + '"></a>' + coins[key].name + ' "' + coins[key].symbol + '"';
-                          }
-                          else {
-                              coinString = coinString + ', <img src="' + coins[key].image + '">' + coins[key].name + ' "' + coins[key].symbol + '"';
-                          }
+                          // TODO: update selection lists
+                          // TODO: link selection lists to coin symbols
+                          var coinString = "";
+                          for (var key in coins) {
+                            if (coins.hasOwnProperty(key)) {
+                              if (coins[key].symbol == "zec") {
+                                coinString = coinString + ', <a onclick="phrase_cookie()"><img src="' + coins[key].image + '"></a>' + coins[key].name + ' "' + coins[key].symbol + '"';
+                              }
+                              else {
+                                  coinString = coinString + ', <img src="' + coins[key].image + '">' + coins[key].name + ' "' + coins[key].symbol + '"';
+                              }
 
+                            }
+                          }
+                          coinString = coinString.substring(2, coinString.length);
+                          updateElement('supported_coins', coinString);
+                          // console.log(Object.keys(responseData).length);
+                          // console.log(Object.keys(coins).length);
+                        },
+                        error: function (responseData, textStatus, errorThrown) {
+                          updateElement('supported_coins', '<div class="alert alert-warning" role="alert" align="center">Could not fech supported coins from ShapeShift</div>');
                         }
-                      }
-                      coinString = coinString.substring(2, coinString.length);
-                      updateElement('supported_coins', coinString);
-                      // console.log(Object.keys(responseData).length);
-                      // console.log(Object.keys(coins).length);
-                    },
-                    error: function (responseData, textStatus, errorThrown) {
-                      updateElement('supported_coins', '<div class="alert alert-warning" role="alert" align="center">Could not fech supported coins from ShapeShift</div>');
+                      });
                     }
-                  });
+                  })
                 }
               })
+
             }
           })
-
 
         }
       })
