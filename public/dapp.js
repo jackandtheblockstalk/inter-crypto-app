@@ -37,7 +37,7 @@ var coins = new Map();
 // MetaMask injects the web3 library for us.
 window.onload = function() {
   if (typeof web3 === 'undefined') {
-    displayDAPPContent('<div class="alert alert-warning" role="alert" align="center">You need <a href="https://metamask.io/">MetaMask</a> browser plugin or the <a href="https://github.com/ethereum/mist/releases/t">Mist</a> browser to run this interact with Ethereum</div>');
+    displayDAPPContent('<div class="alert alert-warning" role="alert" align="center">You need <a href="https://metamask.io/">MetaMask</a> browser plugin or the <a href="https://github.com/ethereum/mist/releases/t">Mist</a> browser to interact with this Ethereum smart contract.</div>');
   }
   else {
     try {
@@ -291,6 +291,7 @@ function donate_send() {
 function displayDAPPContent(content) {
   document.getElementById('intercrypto-dapp').innerHTML = content;
   document.getElementById('demo-dapp').innerHTML = content;
+  document.getElementById('jack-donate').innerHTML = content;
 }
 
 function ic_update() {
